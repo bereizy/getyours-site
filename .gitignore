@@ -22,3 +22,4 @@ pnpm-debug.log*
 .idea/
 create-stripe-products.js
 create-payment-links.js
+create-tier-products.js
