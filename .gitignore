@@ -21,6 +21,11 @@ pnpm-debug.log*
 # IDE
 .vscode/
 .idea/
+
+# Wrangler temp files
+.wrangler/
+
+# Stripe scripts (contain API keys)
 create-stripe-products.js
 create-payment-links.js
 create-tier-products.js
