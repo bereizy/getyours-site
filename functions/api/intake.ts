@@ -89,9 +89,12 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // Save to Google Sheets
     await appendToGoogleSheet(env, data);
 
-    // Send email notification (if Resend is configured)
+    // Send email notifications (if Resend is configured)
     if (env.RESEND_API_KEY) {
+      // Notify you about new submission
       await sendNotificationEmail(env, data);
+      // Send confirmation to customer
+      await sendCustomerConfirmationEmail(env, data);
     }
 
     return new Response(JSON.stringify({ success: true, submissionId }), {
@@ -324,6 +327,60 @@ Submitted: ${data.timestamp}
       from: 'GetYours <noreply@indirecttek.com>',
       to: env.NOTIFICATION_EMAIL,
       subject: `🚀 New Intake: ${data.businessName} (${data.industry})`,
+      text: emailBody,
+    }),
+  });
+}
+
+// Send confirmation email to customer
+async function sendCustomerConfirmationEmail(env: Env, data: Record<string, string>) {
+  const emailBody = `
+Hi ${data.contactName.split(' ')[0]}!
+
+Thanks for submitting your project details for ${data.businessName}! 🎉
+
+We've received everything and our team is reviewing your information. Here's what happens next:
+
+📋 WHAT WE RECEIVED
+━━━━━━━━━━━━━━━━━━━━━━
+Business: ${data.businessName}
+Industry: ${data.industry}
+Service Area: ${data.serviceArea}
+
+🎨 YOUR BRAND COLORS
+━━━━━━━━━━━━━━━━━━━━━━
+Primary: ${data.primaryColor}
+Secondary: ${data.secondaryColor}
+Accent: ${data.accentColor}
+
+⏱️ TIMELINE
+━━━━━━━━━━━━━━━━━━━━━━
+• Within 24-48 hours: We'll review your submission
+• Within 3-5 business days: Your first draft will be ready
+• You'll receive an email when your site preview is available
+
+💬 QUESTIONS?
+━━━━━━━━━━━━━━━━━━━━━━
+We're here to help! Contact us anytime:
+📧 Email: support@indirecttek.com
+🌐 Website: https://indirecttek.com
+
+Thanks for choosing GetYours!
+
+Best,
+The IndirectTek Team
+`;
+
+  await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${env.RESEND_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: 'GetYours <noreply@indirecttek.com>',
+      to: data.email,
+      subject: `✅ We received your project details for ${data.businessName}!`,
       text: emailBody,
     }),
   });
