@@ -1,0 +1,356 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import "../styles/global.css";
+---
+
+<BaseLayout title="Own Your Website | IndirectTek Essentials" description="Stop renting your business website. Own your site outright—with no monthly platform fees. Delivered in 48 hours.">
+  
+  <!-- HERO SECTION -->
+  <section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white px-6 py-20">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="text-emerald-400 font-semibold tracking-widest uppercase mb-4">IndirectTek Essentials</p>
+      <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">
+        Stop Renting Your Website.<br />
+        <span class="text-emerald-400">Own It Forever.</span>
+      </h1>
+      <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10">
+        Pay once. Get a fully customized, professional website delivered in ~48 hours. 
+        You own the code, you own the domain—no monthly platform fees, ever.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a 
+          href="#pricing" 
+          class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-8 py-4 rounded-lg transition-all hover:shadow-lg hover:shadow-emerald-500/25"
+        >
+          View Packages
+        </a>
+        <a 
+          href="#demos" 
+          class="inline-block bg-transparent border-2 border-slate-500 hover:border-slate-400 text-white font-semibold px-8 py-4 rounded-lg transition-all hover:bg-slate-800"
+        >
+          See Live Demos
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS SECTION -->
+  <section class="py-20 px-6 bg-slate-50">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">How It Works</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center p-8">
+          <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="text-4xl">📦</span>
+          </div>
+          <h3 class="text-xl font-bold mb-3">1. Choose Your Package</h3>
+          <p class="text-slate-600">Pick Landscaping, Professional, or Dental/Medical based on your business type.</p>
+        </div>
+        <div class="text-center p-8">
+          <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="text-4xl">🎨</span>
+          </div>
+          <h3 class="text-xl font-bold mb-3">2. We Customize It</h3>
+          <p class="text-slate-600">We plug in your logo, colors, services, and contact info—ready for launch.</p>
+        </div>
+        <div class="text-center p-8">
+          <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="text-4xl">🔑</span>
+          </div>
+          <h3 class="text-xl font-bold mb-3">3. You Own It Forever</h3>
+          <p class="text-slate-600">You get the repo + domain control—no monthly rent, no lock-in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON SECTION -->
+  <section class="py-20 px-6 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Why not Wix/Squarespace?</h2>
+      <p class="text-slate-600 text-center mb-12 max-w-2xl mx-auto">See the difference between owning your website and renting someone else's platform.</p>
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- IndirectTek Card -->
+        <div class="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-8">
+          <h3 class="text-2xl font-bold text-emerald-700 mb-6">IndirectTek Essentials</h3>
+          <ul class="space-y-4">
+            <li class="flex items-center gap-3">
+              <span class="text-emerald-500 text-xl">✓</span>
+              <span>One-time fee</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-emerald-500 text-xl">✓</span>
+              <span>You own the code</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-emerald-500 text-xl">✓</span>
+              <span>You own the domain</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-emerald-500 text-xl">✓</span>
+              <span>No lock-in</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-emerald-500 text-xl">✓</span>
+              <span>Optional care plan ($49/mo)</span>
+            </li>
+          </ul>
+        </div>
+        <!-- Competitors Card -->
+        <div class="bg-slate-100 border-2 border-slate-200 rounded-2xl p-8">
+          <h3 class="text-2xl font-bold text-slate-500 mb-6">Wix / Squarespace / GoDaddy</h3>
+          <ul class="space-y-4">
+            <li class="flex items-center gap-3">
+              <span class="text-red-500 text-xl">✗</span>
+              <span class="text-slate-600">Monthly subscription forever</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-red-500 text-xl">✗</span>
+              <span class="text-slate-600">You rent the platform</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-red-500 text-xl">✗</span>
+              <span class="text-slate-600">Hard to move off</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-red-500 text-xl">✗</span>
+              <span class="text-slate-600">Hidden upsells</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-red-500 text-xl">✗</span>
+              <span class="text-slate-600">Limited customization</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING SECTION -->
+  <section id="pricing" class="py-20 px-6 bg-slate-900 text-white">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Choose Your Package</h2>
+      <p class="text-slate-400 text-center mb-12 max-w-2xl mx-auto">One-time payment. Lifetime ownership. No monthly fees.</p>
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <!-- Card 1 - Landscaper -->
+        <div class="bg-slate-800 rounded-xl p-8 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 border border-slate-700">
+          <h3 class="text-2xl font-bold mb-2">The Landscaper</h3>
+          <p class="text-slate-400 mb-4">Perfect for lawn, detail, pressure wash & mobile businesses</p>
+          <div class="mb-6">
+            <span class="text-5xl font-bold text-emerald-400">$699</span>
+            <span class="text-slate-500 ml-2">one-time</span>
+          </div>
+          <ul class="space-y-3 mb-8 text-slate-300">
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> Services grid
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> Contact form included
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> Mobile responsive
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> SEO optimized
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> 48-hour delivery
+            </li>
+          </ul>
+          <div class="space-y-3">
+            <a href="https://landscaping.indirecttek.com" target="_blank" class="block w-full text-center bg-transparent border-2 border-emerald-500 text-emerald-400 font-semibold py-3 rounded-lg hover:bg-emerald-500 hover:text-white transition-all">
+              View Demo
+            </a>
+            <a href="#" class="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 rounded-lg transition-all">
+              Get Started
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2 - Professional (Most Popular) -->
+        <div class="bg-slate-800 rounded-xl p-8 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 border-2 border-emerald-500 relative">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-sm font-bold px-4 py-1 rounded-full">
+            Most Popular
+          </div>
+          <h3 class="text-2xl font-bold mb-2">The Professional</h3>
+          <p class="text-slate-400 mb-4">Ideal for real estate, tax, consulting & legal</p>
+          <div class="mb-6">
+            <span class="text-5xl font-bold text-emerald-400">$1,499</span>
+            <span class="text-slate-500 ml-2">one-time</span>
+          </div>
+          <ul class="space-y-3 mb-8 text-slate-300">
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> Professional layout
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> Lead capture forms
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> Service showcases
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> Testimonials section
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> 48-hour delivery
+            </li>
+          </ul>
+          <div class="space-y-3">
+            <a href="#demos" class="block w-full text-center bg-transparent border-2 border-emerald-500 text-emerald-400 font-semibold py-3 rounded-lg hover:bg-emerald-500 hover:text-white transition-all">
+              View Demo
+            </a>
+            <a href="#" class="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 rounded-lg transition-all">
+              Get Started
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3 - Medical Practice -->
+        <div class="bg-slate-800 rounded-xl p-8 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 border border-slate-700">
+          <h3 class="text-2xl font-bold mb-2">The Medical Practice</h3>
+          <p class="text-slate-400 mb-4">Built for dental, medical & wellness practices</p>
+          <div class="mb-6">
+            <span class="text-5xl font-bold text-emerald-400">$3,999</span>
+            <span class="text-slate-500 ml-2">one-time</span>
+          </div>
+          <ul class="space-y-3 mb-8 text-slate-300">
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> HIPAA-friendly design
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> Appointment booking
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> Provider profiles
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> Insurance info section
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-emerald-400">✓</span> 48-hour delivery
+            </li>
+          </ul>
+          <div class="space-y-3">
+            <a href="https://dental.indirecttek.com" target="_blank" class="block w-full text-center bg-transparent border-2 border-emerald-500 text-emerald-400 font-semibold py-3 rounded-lg hover:bg-emerald-500 hover:text-white transition-all">
+              View Demo
+            </a>
+            <a href="#" class="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 rounded-lg transition-all">
+              Get Started
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMOS SECTION -->
+  <section id="demos" class="py-20 px-6 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Live Demos</h2>
+      <p class="text-slate-600 text-center mb-12 max-w-2xl mx-auto">See real examples of what you'll get. Every site is fast, mobile-friendly, and ready to customize.</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <a href="https://landscaping.indirecttek.com" target="_blank" class="group block bg-slate-50 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all border border-slate-200">
+          <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-emerald-200 transition-colors">
+            <span class="text-2xl">🌿</span>
+          </div>
+          <h3 class="font-bold text-lg mb-1">GreenLeaf Lawn Care</h3>
+          <p class="text-slate-500 text-sm">Landscaping Template</p>
+        </a>
+        <a href="https://dental.indirecttek.com" target="_blank" class="group block bg-slate-50 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all border border-slate-200">
+          <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-emerald-200 transition-colors">
+            <span class="text-2xl">🦷</span>
+          </div>
+          <h3 class="font-bold text-lg mb-1">Raleigh Family Dental</h3>
+          <p class="text-slate-500 text-sm">Medical Template</p>
+        </a>
+        <a href="https://detailing.indirecttek.com" target="_blank" class="group block bg-slate-50 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all border border-slate-200">
+          <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-emerald-200 transition-colors">
+            <span class="text-2xl">🚗</span>
+          </div>
+          <h3 class="font-bold text-lg mb-1">Triangle Mobile Detail</h3>
+          <p class="text-slate-500 text-sm">Auto Detailing Template</p>
+        </a>
+        <a href="https://pressurewashing.indirecttek.com" target="_blank" class="group block bg-slate-50 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all border border-slate-200">
+          <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-emerald-200 transition-colors">
+            <span class="text-2xl">💧</span>
+          </div>
+          <h3 class="font-bold text-lg mb-1">Crystal Clean PW</h3>
+          <p class="text-slate-500 text-sm">Pressure Washing Template</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="py-20 px-6 bg-slate-50">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        <details class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 group">
+          <summary class="font-bold text-lg cursor-pointer list-none flex justify-between items-center">
+            How fast is delivery?
+            <span class="text-emerald-500 group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-slate-600">Most sites are delivered within 48 hours of receiving your content (logo, colors, service list, contact info). Complex customizations may take slightly longer.</p>
+        </details>
+        <details class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 group">
+          <summary class="font-bold text-lg cursor-pointer list-none flex justify-between items-center">
+            What do I need to send?
+            <span class="text-emerald-500 group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-slate-600">Your logo (or we can create a text logo), brand colors, list of services, contact information, and any photos you'd like to use. We'll guide you through a simple intake form.</p>
+        </details>
+        <details class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 group">
+          <summary class="font-bold text-lg cursor-pointer list-none flex justify-between items-center">
+            Do I really own the website?
+            <span class="text-emerald-500 group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-slate-600">Yes! You get full ownership of the code (delivered via GitHub) and control of your domain. You can host it anywhere, modify it, or hand it to another developer. No lock-in.</p>
+        </details>
+        <details class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 group">
+          <summary class="font-bold text-lg cursor-pointer list-none flex justify-between items-center">
+            What if I want to leave later?
+            <span class="text-emerald-500 group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-slate-600">You're free to leave whenever you want—there's no contract. Your code is yours, and your domain is registered in your name. Take everything with you.</p>
+        </details>
+        <details class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 group">
+          <summary class="font-bold text-lg cursor-pointer list-none flex justify-between items-center">
+            Can you handle hosting & updates?
+            <span class="text-emerald-500 group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-slate-600">Absolutely! Our optional care plan ($49/mo) includes hosting, SSL, updates, and minor content changes. But it's completely optional—you can self-host for free on platforms like Cloudflare Pages.</p>
+        </details>
+        <details class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 group">
+          <summary class="font-bold text-lg cursor-pointer list-none flex justify-between items-center">
+            What payment methods do you accept?
+            <span class="text-emerald-500 group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-slate-600">We accept all major credit cards, debit cards, and ACH bank transfers through Stripe. Payment is due upfront before we begin customization.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FOOTER -->
+  <section class="py-20 px-6 bg-slate-900 text-white">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">Not sure which package fits?</h2>
+      <p class="text-slate-400 text-lg mb-8">Let's talk. We'll help you pick the right option for your business.</p>
+      <a 
+        href="mailto:info@indirecttek.com" 
+        class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-8 py-4 rounded-lg transition-all hover:shadow-lg hover:shadow-emerald-500/25"
+      >
+        Contact Us
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-8 px-6 bg-slate-950 text-slate-500 text-center">
+    <p>© {new Date().getFullYear()} IndirectTek Essentials. All rights reserved.</p>
+  </footer>
+
+</BaseLayout>
