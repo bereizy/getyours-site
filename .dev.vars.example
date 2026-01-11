@@ -1,0 +1,14 @@
+# IndirectTek Essentials - Intake Form Secrets
+# DO NOT COMMIT THIS FILE
+
+# Google Sheets Integration
+GOOGLE_SERVICE_ACCOUNT_EMAIL=your-service-account@your-project.iam.gserviceaccount.com
+GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYOUR_KEY_HERE\n-----END PRIVATE KEY-----"
+GOOGLE_SHEET_ID=your-sheet-id-here
+
+# Email Notifications
+NOTIFICATION_EMAIL=info@indirecttek.com
+RESEND_API_KEY=re_xxxxxxxxxxxx
+
+# R2 Bucket (configured in Cloudflare dashboard)
+# R2_BUCKET is bound via wrangler.toml
