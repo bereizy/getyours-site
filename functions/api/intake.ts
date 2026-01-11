@@ -188,7 +188,23 @@ async function createGoogleJWT(env: Env): Promise<string> {
   const signatureInput = `${encodedHeader}.${encodedPayload}`;
 
   // Import private key and sign
-  const privateKey = env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n');
+  // Handle various formats of the private key from environment variables:
+  // 1. Literal \n characters (from JSON copy/paste)
+  // 2. Missing newline after BEGIN header (-----BEGIN PRIVATE KEY-----n instead of newline)
+  // 3. Missing newline before END footer
+  let privateKey = env.GOOGLE_PRIVATE_KEY;
+  
+  // Replace literal \n with actual newlines
+  if (privateKey.includes('\\n')) {
+    privateKey = privateKey.replace(/\\n/g, '\n');
+  }
+  
+  // Fix common copy/paste issue: "-----BEGIN PRIVATE KEY-----n" should have newline not 'n'
+  privateKey = privateKey.replace(/-----BEGIN PRIVATE KEY-----n/g, '-----BEGIN PRIVATE KEY-----\n');
+  
+  // Ensure proper newline before END marker
+  privateKey = privateKey.replace(/([A-Za-z0-9+/=])-----END PRIVATE KEY-----/g, '$1\n-----END PRIVATE KEY-----');
+  
   const key = await crypto.subtle.importKey(
     'pkcs8',
     pemToArrayBuffer(privateKey),
