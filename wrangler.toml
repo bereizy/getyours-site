@@ -2,7 +2,8 @@ name = "getyours-site"
 compatibility_date = "2024-01-01"
 pages_build_output_dir = "dist"
 
-# R2 Bucket for file uploads
-[[r2_buckets]]
-binding = "R2_BUCKET"
-bucket_name = "indirecttek-uploads"
+# R2 Bucket for file uploads (optional - create in Cloudflare dashboard first)
+# Uncomment after creating bucket named "indirecttek-uploads" in Cloudflare R2
+# [[r2_buckets]]
+# binding = "R2_BUCKET"
+# bucket_name = "indirecttek-uploads"
