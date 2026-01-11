@@ -321,7 +321,7 @@ Submitted: ${data.timestamp}
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'IndirectTek <noreply@indirecttek.com>',
+      from: 'GetYours <noreply@indirecttek.com>',
       to: env.NOTIFICATION_EMAIL,
       subject: `🚀 New Intake: ${data.businessName} (${data.industry})`,
       text: emailBody,
