@@ -15,8 +15,7 @@ interface Env {
 }
 
 // Template mapping based on industry
-// NOTE: Only essentials-real-estate-starter and essentials-tax-starter exist for now
-// All industries are mapped to one of these two templates
+// Templates: essentials-tax-starter (Starter), essentials-professional-starter (Professional), essentials-medical-starter (Medical)
 const TEMPLATE_MAP: Record<string, { template: string; tier: string }> = {
   // Starter Tier ($699) - Service-based trades
   // Using tax template as it's more service-oriented
@@ -30,25 +29,24 @@ const TEMPLATE_MAP: Record<string, { template: string; tier: string }> = {
   'painting': { template: 'essentials-tax-starter', tier: 'starter' },
   
   // Professional Tier ($1,499) - Credentialed pros
-  'real-estate': { template: 'essentials-real-estate-starter', tier: 'professional' },
-  'tax-accounting': { template: 'essentials-tax-starter', tier: 'professional' },
-  'consulting': { template: 'essentials-tax-starter', tier: 'professional' },
-  'insurance': { template: 'essentials-tax-starter', tier: 'professional' },
-  'legal': { template: 'essentials-tax-starter', tier: 'professional' },
-  'photography': { template: 'essentials-real-estate-starter', tier: 'professional' },
-  'salon': { template: 'essentials-real-estate-starter', tier: 'professional' },
-  'fitness': { template: 'essentials-real-estate-starter', tier: 'professional' },
-  'tech-repair': { template: 'essentials-tax-starter', tier: 'professional' },
+  'real-estate': { template: 'essentials-professional-starter', tier: 'professional' },
+  'tax-accounting': { template: 'essentials-professional-starter', tier: 'professional' },
+  'consulting': { template: 'essentials-professional-starter', tier: 'professional' },
+  'insurance': { template: 'essentials-professional-starter', tier: 'professional' },
+  'legal': { template: 'essentials-professional-starter', tier: 'professional' },
+  'photography': { template: 'essentials-professional-starter', tier: 'professional' },
+  'salon': { template: 'essentials-professional-starter', tier: 'professional' },
+  'fitness': { template: 'essentials-professional-starter', tier: 'professional' },
+  'tech-repair': { template: 'essentials-professional-starter', tier: 'professional' },
   
   // Medical Tier ($3,999) - Regulated practices
-  // Using tax template until dental template is created
-  'dental': { template: 'essentials-tax-starter', tier: 'medical' },
-  'medical': { template: 'essentials-tax-starter', tier: 'medical' },
-  'chiropractic': { template: 'essentials-tax-starter', tier: 'medical' },
-  'therapy': { template: 'essentials-tax-starter', tier: 'medical' },
-  'optometry': { template: 'essentials-tax-starter', tier: 'medical' },
-  'veterinary': { template: 'essentials-tax-starter', tier: 'medical' },
-  'medical-aesthetics': { template: 'essentials-tax-starter', tier: 'medical' },
+  'dental': { template: 'essentials-medical-starter', tier: 'medical' },
+  'medical': { template: 'essentials-medical-starter', tier: 'medical' },
+  'chiropractic': { template: 'essentials-medical-starter', tier: 'medical' },
+  'therapy': { template: 'essentials-medical-starter', tier: 'medical' },
+  'optometry': { template: 'essentials-medical-starter', tier: 'medical' },
+  'veterinary': { template: 'essentials-medical-starter', tier: 'medical' },
+  'medical-aesthetics': { template: 'essentials-medical-starter', tier: 'medical' },
   
   // Fallback
   'other': { template: 'essentials-tax-starter', tier: 'starter' },

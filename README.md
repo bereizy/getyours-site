@@ -117,26 +117,27 @@ const TEMPLATE_MAP = {
   'painting': 'essentials-tax-starter',
 
   // Professional Tier ($1,499)
-  'real-estate': 'essentials-real-estate-starter',
-  'tax-accounting': 'essentials-tax-starter',
-  'consulting': 'essentials-tax-starter',
-  'insurance': 'essentials-tax-starter',
-  'legal': 'essentials-tax-starter',
-  'photography': 'essentials-real-estate-starter',
-  'salon': 'essentials-real-estate-starter',
-  'fitness': 'essentials-real-estate-starter',
+  'real-estate': 'essentials-professional-starter',
+  'tax-accounting': 'essentials-professional-starter',
+  'consulting': 'essentials-professional-starter',
+  'insurance': 'essentials-professional-starter',
+  'legal': 'essentials-professional-starter',
+  'photography': 'essentials-professional-starter',
+  'salon': 'essentials-professional-starter',
+  'fitness': 'essentials-professional-starter',
 
   // Medical Tier ($3,999)
-  'dental': 'essentials-tax-starter',
-  'medical': 'essentials-tax-starter',
-  'chiropractic': 'essentials-tax-starter',
-  'therapy': 'essentials-tax-starter',
+  'dental': 'essentials-medical-starter',
+  'medical': 'essentials-medical-starter',
+  'chiropractic': 'essentials-medical-starter',
+  'therapy': 'essentials-medical-starter',
 };
 ```
 
 Template Repos (must be marked as templates on GitHub):
-- bereizy/essentials-tax-starter
-- bereizy/essentials-real-estate-starter
+- bereizy/essentials-tax-starter (Starter tier)
+- bereizy/essentials-professional-starter (Professional tier) - https://professional.indirecttek.com
+- bereizy/essentials-medical-starter (Medical tier) - https://medical.indirecttek.com
 
 ---
 
