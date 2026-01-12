@@ -5,7 +5,7 @@ import "../styles/global.css";
 
 <BaseLayout title="Thank You! | IndirectTek Essentials" description="Your order is confirmed. Let's get started building your website.">
   
-  <section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white px-6 py-20">
+  <section id="thank-you-section" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white px-6 py-20">
     <div class="max-w-2xl mx-auto text-center">
       
       <!-- Success Icon -->
@@ -52,6 +52,7 @@ import "../styles/global.css";
       </div>
 
       <a 
+        id="start-form-link"
         href="/start" 
         class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-lg px-10 py-4 rounded-lg transition-all hover:shadow-lg hover:shadow-emerald-500/25 hover:-translate-y-0.5"
       >
@@ -89,5 +90,43 @@ import "../styles/global.css";
 
     </div>
   </section>
+
+  <script>
+    // Verify Stripe session and get token for intake form
+    async function verifySession() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const sessionId = urlParams.get('session_id');
+      
+      if (!sessionId) {
+        // No session ID - redirect to home (they shouldn't be here without paying)
+        console.log('No session ID found, redirecting to home');
+        window.location.href = '/';
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/verify-session?session_id=${sessionId}`);
+        const data = await response.json();
+        
+        if (data.valid && data.token) {
+          // Update the start form link with the token
+          const link = document.getElementById('start-form-link') as HTMLAnchorElement;
+          if (link) {
+            link.href = `/start?token=${data.token}`;
+          }
+        } else {
+          // Invalid session - redirect to home
+          console.log('Invalid session:', data.error);
+          window.location.href = '/?error=invalid_session';
+        }
+      } catch (error) {
+        console.error('Session verification failed:', error);
+        // On error, redirect to home
+        window.location.href = '/?error=verification_failed';
+      }
+    }
+
+    verifySession();
+  </script>
 
 </BaseLayout>

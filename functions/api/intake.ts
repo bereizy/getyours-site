@@ -277,7 +277,7 @@ async function runAutomation(
     
     data.automationStatus = 'code_committed';
 
-    // Step 6: Create Cloudflare Pages project (without Git - we'll use direct upload via GitHub Action)
+    // Step 6: Create Cloudflare Pages project
     let projectName = '';
     if (env.CLOUDFLARE_API_TOKEN && env.CLOUDFLARE_ACCOUNT_ID) {
       const pagesResult = await createCloudflarePages(env, repoName);
@@ -286,16 +286,11 @@ async function runAutomation(
       data.automationStatus = 'pages_created';
     }
 
-    // Step 7: Add GitHub Action workflow for auto-deploy to Cloudflare Pages
-    if (projectName && env.CLOUDFLARE_API_TOKEN && env.CLOUDFLARE_ACCOUNT_ID) {
-      const workflowYaml = generateDeployWorkflow(projectName, env.CLOUDFLARE_ACCOUNT_ID);
-      await commitFileToRepo(env, repoName, '.github/workflows/deploy.yml', workflowYaml, 'ci: add Cloudflare Pages deploy workflow');
-      
-      // The workflow commit will trigger GitHub Actions
-      // If org-level CLOUDFLARE_API_TOKEN secret is set, it will auto-deploy
-      // Otherwise, the admin needs to add the secret to enable deployments
-      
-      data.automationStatus = 'workflow_added';
+    // Step 7: Trigger the centralized deployer workflow
+    // This builds and deploys the site via bereizy/site-deployer GitHub Action
+    if (projectName) {
+      await triggerDeployerWorkflow(env, repoName, projectName);
+      data.automationStatus = 'deploy_triggered';
     } else {
       data.automationStatus = 'complete_no_deploy';
     }
@@ -307,6 +302,7 @@ async function runAutomation(
     if (env.RESEND_API_KEY) {
       await sendAutomationSuccessEmail(env, data);
     }
+
 
   } catch (automationError) {
     console.error('Automation error:', automationError);
@@ -727,6 +723,128 @@ function arrayBufferToBase64(buffer: ArrayBuffer): string {
 }
 
 // =====================================================
+// STOCK IMAGE URLS BY INDUSTRY
+// =====================================================
+
+// Get industry-specific stock image URLs from Unsplash
+function getIndustryImageUrls(industry: string): { hero: string; about: string } {
+  // Using Unsplash Source for reliable, high-quality stock images
+  // Format: https://images.unsplash.com/photo-ID?w=1200&h=800&fit=crop
+  
+  const imageMap: Record<string, { hero: string; about: string }> = {
+    // Starter Tier - Service Trades
+    'landscaping': {
+      hero: 'https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=800&h=600&fit=crop',
+    },
+    'pressure-washing': {
+      hero: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=800&h=600&fit=crop',
+    },
+    'auto-detailing': {
+      hero: 'https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=800&h=600&fit=crop',
+    },
+    'home-cleaning': {
+      hero: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1527515545081-5db817172677?w=800&h=600&fit=crop',
+    },
+    'handyman': {
+      hero: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&h=600&fit=crop',
+    },
+    'junk-removal': {
+      hero: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=800&h=600&fit=crop',
+    },
+    'pool-cleaning': {
+      hero: 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1572331165267-854da2b021aa?w=800&h=600&fit=crop',
+    },
+    'painting': {
+      hero: 'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=800&h=600&fit=crop',
+    },
+    
+    // Professional Tier
+    'real-estate': {
+      hero: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=800&h=600&fit=crop',
+    },
+    'tax-accounting': {
+      hero: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop',
+    },
+    'consulting': {
+      hero: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop',
+    },
+    'insurance': {
+      hero: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop',
+    },
+    'legal': {
+      hero: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=800&h=600&fit=crop',
+    },
+    'photography': {
+      hero: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1471341971476-ae15ff5dd4ea?w=800&h=600&fit=crop',
+    },
+    'salon': {
+      hero: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&h=600&fit=crop',
+    },
+    'fitness': {
+      hero: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&h=600&fit=crop',
+    },
+    'tech-repair': {
+      hero: 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1588508065123-287b28e013da?w=800&h=600&fit=crop',
+    },
+    
+    // Medical Tier
+    'dental': {
+      hero: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=600&fit=crop',
+    },
+    'medical': {
+      hero: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=800&h=600&fit=crop',
+    },
+    'chiropractic': {
+      hero: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800&h=600&fit=crop',
+    },
+    'therapy': {
+      hero: 'https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1527689368864-3a821dbccc34?w=800&h=600&fit=crop',
+    },
+    'optometry': {
+      hero: 'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=800&h=600&fit=crop',
+    },
+    'veterinary': {
+      hero: 'https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1612531386530-97286d97c2d2?w=800&h=600&fit=crop',
+    },
+    'medical-aesthetics': {
+      hero: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1200&h=800&fit=crop',
+      about: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&h=600&fit=crop',
+    },
+  };
+  
+  // Default fallback for 'other' or unknown industries
+  const defaultImages = {
+    hero: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop',
+    about: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&h=600&fit=crop',
+  };
+  
+  return imageMap[industry] || defaultImages;
+}
+
+// =====================================================
 // CLAUDE AI FUNCTIONS
 // =====================================================
 
@@ -775,6 +893,9 @@ async function generateSiteConfig(env: Env, data: Record<string, string>, tier: 
 function buildSiteConfigPrompt(data: Record<string, string>, tier: string): string {
   const services = data.services.split(/[\n,]/).map(s => s.trim()).filter(s => s.length > 0);
   
+  // Get placeholder image URLs based on industry
+  const imageUrls = getIndustryImageUrls(data.industry);
+  
   return `You are a professional copywriter and web developer. Generate a complete siteConfig.ts file for a ${data.industry} business website.
 
 BUSINESS INFORMATION:
@@ -808,6 +929,10 @@ ${data.notes || 'None provided'}
 
 TIER: ${tier} (${tier === 'starter' ? 'service trade' : tier === 'professional' ? 'professional/credentialed' : 'medical/regulated'})
 
+IMAGE URLs TO USE (these are pre-selected stock photos - use them exactly):
+- Hero image: "${imageUrls.hero}"
+- About section: "${imageUrls.about}"
+
 Generate a complete siteConfig.ts file that:
 1. Imports the SiteConfig type from "@indirecttek/essentials-engine"
 2. Uses compelling, professional headline copy appropriate for the industry
@@ -815,6 +940,7 @@ Generate a complete siteConfig.ts file that:
 4. Has proper SEO title and description
 5. Uses the exact brand colors provided
 6. Includes proper contact information
+7. Uses the exact imageUrl values provided above for heroSection.imageUrl
 
 CRITICAL: Output ONLY the TypeScript code, wrapped in \`\`\`typescript code blocks. No explanations.
 
@@ -987,67 +1113,41 @@ async function createCloudflarePages(env: Env, repoName: string): Promise<{ subd
   };
 }
 
-// Generate GitHub Actions workflow for Cloudflare Pages deployment
-function generateDeployWorkflow(projectName: string, accountId: string): string {
-  return `name: Deploy to Cloudflare Pages
+// Trigger the centralized site-deployer workflow to build and deploy
+const DEPLOYER_REPO = 'site-deployer';
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      deployments: write
-    
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: \${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${accountId}
-          command: pages deploy dist --project-name=${projectName}
-`;
-}
-
-// Trigger a deployment for a Pages project
-async function triggerPagesDeployment(env: Env, projectName: string): Promise<void> {
-  // Use the deployments endpoint to trigger a build
+async function triggerDeployerWorkflow(env: Env, repoName: string, projectName: string): Promise<void> {
+  console.log('Triggering deployer workflow for:', repoName, projectName);
+  
   const response = await fetch(
-    `https://api.cloudflare.com/client/v4/accounts/${env.CLOUDFLARE_ACCOUNT_ID}/pages/projects/${projectName}/deployments`,
+    `https://api.github.com/repos/${GITHUB_OWNER}/${DEPLOYER_REPO}/actions/workflows/deploy-site.yml/dispatches`,
     {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${env.CLOUDFLARE_API_TOKEN}`,
-        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${env.GITHUB_PAT}`,
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+        'User-Agent': 'GetYours-Automation',
       },
       body: JSON.stringify({
-        branch: 'main',
+        ref: 'main',
+        inputs: {
+          repo_name: repoName,
+          project_name: projectName,
+        },
       }),
     }
   );
 
+  // GitHub returns 204 No Content on success for workflow_dispatch
+  const responseText = await response.text();
+  console.log('Deployer workflow response:', response.status, responseText || '(empty body)');
+  
   if (!response.ok) {
-    // Log but don't fail - the project is created, deployment can be triggered later
-    console.error('Failed to trigger deployment:', await response.text());
+    console.error('Failed to trigger deployer workflow:', response.status, responseText);
+    // Don't throw - site is created, just not auto-deployed
+  } else {
+    console.log('Deployer workflow triggered successfully, status:', response.status);
   }
 }
 
@@ -1116,7 +1216,7 @@ async function updateSheetRow(env: Env, timestamp: string, repoUrl: string, stat
 // Send email when automation completes successfully
 async function sendAutomationSuccessEmail(env: Env, data: Record<string, string>): Promise<void> {
   const hasPreview = data.previewUrl && data.previewUrl.length > 0;
-  const hasWorkflow = data.automationStatus === 'workflow_added';
+  const deployTriggered = data.automationStatus === 'deploy_triggered';
   
   const emailBody = `
 🎉 Website Build Automation Complete!
@@ -1137,35 +1237,27 @@ Tier: ${data.tier}
 ✅ siteConfig.ts generated (Claude AI)
 ✅ Tailwind brand colors applied
 ${hasPreview ? `✅ Cloudflare Pages project created` : '⬜ Cloudflare Pages not configured'}
-${hasWorkflow ? `✅ GitHub Actions workflow added` : '⬜ No deploy workflow'}
+${deployTriggered ? `✅ Build & deploy triggered` : '⬜ Deploy not triggered'}
 
 📦 REPOSITORY
 ━━━━━━━━━━━━━━━━━━━━━━
 ${data.repoUrl}
 
-${hasPreview ? `🌐 PREVIEW URL (once deployed)
+${hasPreview ? `🌐 PREVIEW URL
 ━━━━━━━━━━━━━━━━━━━━━━
 ${data.previewUrl}
-` : ''}
-${hasWorkflow ? `🚀 DEPLOYMENT
-━━━━━━━━━━━━━━━━━━━━━━
-A GitHub Actions workflow has been added to auto-deploy on push.
 
-To enable deployment:
-1. Go to: ${data.repoUrl}/settings/secrets/actions
-2. Add repository secret: CLOUDFLARE_API_TOKEN
-3. Push any change or manually trigger the workflow
-
-OR set up org-level secret at:
-https://github.com/organizations/bereizy/settings/secrets/actions
-(One time setup - applies to all future repos)
+${deployTriggered ? `🚀 DEPLOYING NOW!
+The site is being built and deployed automatically.
+It should be live within 2-3 minutes!` : 'Deploy was not triggered automatically.'}
 ` : ''}
 📝 NEXT STEPS
 ━━━━━━━━━━━━━━━━━━━━━━
-1. Review the generated siteConfig.ts
-2. Check/replace hero image if needed
-3. ${hasWorkflow ? 'Add CLOUDFLARE_API_TOKEN secret to trigger deploy' : 'Deploy to Cloudflare Pages manually'}
-4. Make any content tweaks - changes auto-deploy!
+${deployTriggered ? `1. Wait 2-3 minutes for build to complete
+2. Visit ${data.previewUrl} to see the live site
+3. Review and make any content tweaks in the repo
+4. Future pushes will auto-deploy!` : `1. Review the generated siteConfig.ts
+2. Deploy manually or check GitHub Actions`}
 
 Status: ${data.automationStatus}
 `;

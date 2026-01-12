@@ -38,37 +38,40 @@ import "../styles/global.css";
               <select id="industry" name="industry" required
                 class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
                 <option value="">Select your industry...</option>
-                <optgroup label="🟢 Starter Tier ($699)">
-                  <option value="landscaping">Landscaping / Lawn Care</option>
-                  <option value="pressure-washing">Pressure Washing / Exterior Cleaning</option>
-                  <option value="auto-detailing">Auto Detailing / Mobile Detailing</option>
-                  <option value="home-cleaning">Home Cleaning / Maid Service</option>
-                  <option value="handyman">Handyman / Home Repair</option>
-                  <option value="junk-removal">Junk Removal</option>
-                  <option value="pool-cleaning">Pool Cleaning</option>
-                  <option value="painting">Painting</option>
+                <!-- Starter Tier Industries -->
+                <optgroup id="starter-industries" label="🟢 Starter Tier">
+                  <option value="landscaping" data-tier="starter">Landscaping / Lawn Care</option>
+                  <option value="pressure-washing" data-tier="starter">Pressure Washing / Exterior Cleaning</option>
+                  <option value="auto-detailing" data-tier="starter">Auto Detailing / Mobile Detailing</option>
+                  <option value="home-cleaning" data-tier="starter">Home Cleaning / Maid Service</option>
+                  <option value="handyman" data-tier="starter">Handyman / Home Repair</option>
+                  <option value="junk-removal" data-tier="starter">Junk Removal</option>
+                  <option value="pool-cleaning" data-tier="starter">Pool Cleaning</option>
+                  <option value="painting" data-tier="starter">Painting</option>
                 </optgroup>
-                <optgroup label="🔵 Professional Tier ($1,499)">
-                  <option value="real-estate">Real Estate / Property Management</option>
-                  <option value="tax-accounting">Tax Prep / Bookkeeping / Accounting</option>
-                  <option value="consulting">Business Consulting / Freelance</option>
-                  <option value="insurance">Insurance Agent</option>
-                  <option value="legal">Law Firm / Attorney</option>
-                  <option value="photography">Photography / Videography</option>
-                  <option value="salon">Salon / Barbershop / Beauty</option>
-                  <option value="fitness">Gym / Personal Training / Yoga</option>
-                  <option value="tech-repair">Tech Repair (Phone/Computer)</option>
+                <!-- Professional Tier Industries -->
+                <optgroup id="professional-industries" label="🔵 Professional Tier">
+                  <option value="real-estate" data-tier="professional">Real Estate / Property Management</option>
+                  <option value="tax-accounting" data-tier="professional">Tax Prep / Bookkeeping / Accounting</option>
+                  <option value="consulting" data-tier="professional">Business Consulting / Freelance</option>
+                  <option value="insurance" data-tier="professional">Insurance Agent</option>
+                  <option value="legal" data-tier="professional">Law Firm / Attorney</option>
+                  <option value="photography" data-tier="professional">Photography / Videography</option>
+                  <option value="salon" data-tier="professional">Salon / Barbershop / Beauty</option>
+                  <option value="fitness" data-tier="professional">Gym / Personal Training / Yoga</option>
+                  <option value="tech-repair" data-tier="professional">Tech Repair (Phone/Computer)</option>
                 </optgroup>
-                <optgroup label="🟣 Medical Tier ($3,999)">
-                  <option value="dental">Dental Practice</option>
-                  <option value="medical">Medical Practice / Clinic</option>
-                  <option value="chiropractic">Chiropractic</option>
-                  <option value="therapy">Therapy / Counseling / Behavioral Health</option>
-                  <option value="optometry">Optometry / Hearing</option>
-                  <option value="veterinary">Veterinary</option>
-                  <option value="medical-aesthetics">Medical Aesthetics (Botox, Fillers)</option>
+                <!-- Medical Tier Industries -->
+                <optgroup id="medical-industries" label="🟣 Medical Tier">
+                  <option value="dental" data-tier="medical">Dental Practice</option>
+                  <option value="medical" data-tier="medical">Medical Practice / Clinic</option>
+                  <option value="chiropractic" data-tier="medical">Chiropractic</option>
+                  <option value="therapy" data-tier="medical">Therapy / Counseling / Behavioral Health</option>
+                  <option value="optometry" data-tier="medical">Optometry / Hearing</option>
+                  <option value="veterinary" data-tier="medical">Veterinary</option>
+                  <option value="medical-aesthetics" data-tier="medical">Medical Aesthetics (Botox, Fillers)</option>
                 </optgroup>
-                <option value="other">Other (describe in notes)</option>
+                <option value="other" data-tier="all">Other (describe in notes)</option>
               </select>
             </div>
           </div>
@@ -295,7 +298,82 @@ import "../styles/global.css";
     </div>
   </section>
 
+  <!-- Access Denied Message (shown if no valid token) -->
+  <section id="access-denied" class="hidden min-h-screen flex items-center justify-center bg-slate-900 text-white px-6">
+    <div class="max-w-md text-center">
+      <div class="text-6xl mb-6">🔒</div>
+      <h1 class="text-3xl font-bold mb-4">Access Required</h1>
+      <p class="text-slate-400 mb-8">
+        This intake form requires a valid purchase. Please complete your order first, then you'll be redirected here automatically.
+      </p>
+      <a href="/" class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-3 rounded-lg transition-all">
+        View Pricing & Purchase →
+      </a>
+    </div>
+  </section>
+
   <script>
+    // Token validation and tier filtering
+    function validateToken(): { valid: boolean; tier: string } {
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get('token');
+      
+      // Dev bypass for testing - remove in production or use env var
+      if (token === 'dev_bypass') {
+        return { valid: true, tier: 'all' };
+      }
+      
+      if (!token) {
+        return { valid: false, tier: '' };
+      }
+
+      try {
+        const decoded = JSON.parse(atob(token));
+        // Check expiry
+        if (decoded.exp && decoded.exp < Date.now()) {
+          console.log('Token expired');
+          return { valid: false, tier: '' };
+        }
+        return { valid: true, tier: decoded.tier || 'starter' };
+      } catch (e) {
+        console.log('Invalid token format');
+        return { valid: false, tier: '' };
+      }
+    }
+
+    function filterIndustriesByTier(tier: string) {
+      const starterGroup = document.getElementById('starter-industries');
+      const professionalGroup = document.getElementById('professional-industries');
+      const medicalGroup = document.getElementById('medical-industries');
+      
+      // Show all if tier is 'all' (dev mode)
+      if (tier === 'all') return;
+
+      // Hide tiers they didn't pay for
+      // Higher tiers include lower tiers (medical can use professional/starter, professional can use starter)
+      if (tier === 'starter') {
+        professionalGroup?.remove();
+        medicalGroup?.remove();
+      } else if (tier === 'professional') {
+        medicalGroup?.remove();
+      }
+      // Medical tier sees all options
+    }
+
+    // Check token on page load
+    const { valid, tier } = validateToken();
+    const mainSection = document.querySelector('section:not(#access-denied):not(#success-message)');
+    const accessDenied = document.getElementById('access-denied');
+
+    if (!valid) {
+      // Hide form, show access denied
+      if (mainSection) (mainSection as HTMLElement).classList.add('hidden');
+      if (accessDenied) accessDenied.classList.remove('hidden');
+    } else {
+      // Filter industries to their tier
+      filterIndustriesByTier(tier);
+    }
+
     // Color picker sync
     const colorPairs = ['primary', 'secondary', 'accent', 'text'];
     colorPairs.forEach(name => {
@@ -350,9 +428,21 @@ import "../styles/global.css";
       try {
         const formData = new FormData(form);
         
+        // Convert FormData to JSON object for reliable submission
+        const jsonData: Record<string, string> = {};
+        formData.forEach((value, key) => {
+          // Skip file inputs for JSON submission
+          if (typeof value === 'string') {
+            jsonData[key] = value;
+          }
+        });
+        
         const response = await fetch('/api/intake', {
           method: 'POST',
-          body: formData,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(jsonData),
         });
 
         if (response.ok) {
