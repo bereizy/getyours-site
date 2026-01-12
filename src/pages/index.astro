@@ -162,9 +162,12 @@ import "../styles/global.css";
             <a href="https://landscaping.indirecttek.com" target="_blank" class="block w-full text-center bg-transparent border-2 border-emerald-500 text-emerald-400 font-semibold py-3 rounded-lg hover:bg-emerald-500 hover:text-white transition-all">
               View Demo
             </a>
-            <a href="https://buy.stripe.com/7sY8wPcXWbLG9en4Vt8IU00" target="_blank" class="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 rounded-lg transition-all">
+            <button 
+              onclick="openUpsellModal('The Landscaper', '$699', 'https://buy.stripe.com/7sY8wPcXWbLG9en4Vt8IU00', 'https://buy.stripe.com/cNi28raPO4jegGP2Nl8IU0c')"
+              class="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 rounded-lg transition-all cursor-pointer"
+            >
               Get Started
-            </a>
+            </button>
           </div>
         </div>
 
@@ -200,9 +203,12 @@ import "../styles/global.css";
             <a href="#demos" class="block w-full text-center bg-transparent border-2 border-emerald-500 text-emerald-400 font-semibold py-3 rounded-lg hover:bg-emerald-500 hover:text-white transition-all">
               View Demo
             </a>
-            <a href="https://buy.stripe.com/6oU4gz8HG8zuduD4Vt8IU07" target="_blank" class="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 rounded-lg transition-all">
+            <button 
+              onclick="openUpsellModal('The Professional', '$1,499', 'https://buy.stripe.com/6oU4gz8HG8zuduD4Vt8IU07', 'https://buy.stripe.com/8x29AT5vu2b68aj2Nl8IU0b')"
+              class="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 rounded-lg transition-all cursor-pointer"
+            >
               Get Started
-            </a>
+            </button>
           </div>
         </div>
 
@@ -235,9 +241,12 @@ import "../styles/global.css";
             <a href="https://dental.indirecttek.com" target="_blank" class="block w-full text-center bg-transparent border-2 border-emerald-500 text-emerald-400 font-semibold py-3 rounded-lg hover:bg-emerald-500 hover:text-white transition-all">
               View Demo
             </a>
-            <a href="https://buy.stripe.com/9B6dR99LK9DyfCLcnV8IU08" target="_blank" class="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 rounded-lg transition-all">
+            <button 
+              onclick="openUpsellModal('The Medical Practice', '$3,999', 'https://buy.stripe.com/9B6dR99LK9DyfCLcnV8IU08', 'https://buy.stripe.com/8x200jcXWbLG62bbjR8IU0a')"
+              class="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 rounded-lg transition-all cursor-pointer"
+            >
               Get Started
-            </a>
+            </button>
           </div>
         </div>
 
@@ -273,7 +282,7 @@ import "../styles/global.css";
                 <span class="text-3xl font-bold text-amber-400">$49.99</span>
                 <span class="text-slate-400">/mo</span>
               </div>
-              <a href="https://buy.stripe.com/6oU8wPe202b6fCL3Rp8IU06" target="_blank" class="inline-block bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-6 py-2 rounded-lg transition-all text-sm">
+              <a href="https://buy.stripe.com/dRmcN5e209Dy1LV0Fd8IU09" target="_blank" class="inline-block bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-6 py-2 rounded-lg transition-all text-sm">
                 Add to Any Plan
               </a>
               <p class="text-xs text-slate-500 mt-1">Optional • Cancel anytime</p>
@@ -391,5 +400,75 @@ import "../styles/global.css";
   <footer class="py-8 px-6 bg-slate-950 text-slate-500 text-center">
     <p>© {new Date().getFullYear()} IndirectTek Essentials. All rights reserved.</p>
   </footer>
+
+  <!-- Upsell Modal -->
+  <div id="upsellModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeUpsellModal()"></div>
+    
+    <!-- Modal Content -->
+    <div class="relative bg-slate-800 rounded-2xl max-w-lg w-full p-8 shadow-2xl border border-slate-700 transform transition-all">
+      <!-- Close button -->
+      <button onclick="closeUpsellModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-2xl">&times;</button>
+      
+      <!-- Header -->
+      <div class="text-center mb-6">
+        <span class="text-4xl mb-3 block">🛡️</span>
+        <h3 class="text-2xl font-bold text-white mb-2">Add Worry-Free Maintenance?</h3>
+        <p class="text-slate-400">You selected <span id="modalPlanName" class="text-emerald-400 font-semibold"></span></p>
+      </div>
+      
+      <!-- Care Plan Benefits -->
+      <div class="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/30 rounded-xl p-5 mb-6">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-amber-400 font-bold">Care Plan</span>
+          <span class="text-white font-bold">+$49.99<span class="text-slate-400 font-normal">/mo</span></span>
+        </div>
+        <ul class="text-sm text-slate-300 space-y-2">
+          <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Managed hosting & SSL</li>
+          <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Security & performance updates</li>
+          <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Content changes (up to 2/mo)</li>
+          <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Priority email support</li>
+        </ul>
+        <p class="text-xs text-slate-500 mt-3">Cancel anytime. No long-term commitment.</p>
+      </div>
+      
+      <!-- Buttons -->
+      <div class="space-y-3">
+        <a id="bundleLink" href="#" class="block w-full text-center bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold py-4 rounded-lg transition-all text-lg">
+          Yes, Add Care Plan ✨
+        </a>
+        <a id="regularLink" href="#" class="block w-full text-center bg-slate-700 hover:bg-slate-600 text-white font-semibold py-3 rounded-lg transition-all">
+          No thanks, just <span id="modalPrice"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openUpsellModal(planName, price, regularUrl, bundleUrl) {
+      document.getElementById('modalPlanName').textContent = planName;
+      document.getElementById('modalPrice').textContent = price;
+      document.getElementById('regularLink').href = regularUrl;
+      document.getElementById('bundleLink').href = bundleUrl;
+      
+      const modal = document.getElementById('upsellModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeUpsellModal() {
+      const modal = document.getElementById('upsellModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+    
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeUpsellModal();
+    });
+  </script>
 
 </BaseLayout>

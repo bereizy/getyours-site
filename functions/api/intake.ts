@@ -373,7 +373,7 @@ Let us handle the technical stuff! Our Care Plan ($49.99/mo) includes:
 • Minor content changes (up to 2/month)
 • Priority email support
 
-→ Add Care Plan: https://buy.stripe.com/6oU8wPe202b6fCL3Rp8IU06
+→ Add Care Plan: https://buy.stripe.com/dRmcN5e209Dy1LV0Fd8IU09
 (100% optional. Cancel anytime.)
 
 Thanks for choosing GetYours!
