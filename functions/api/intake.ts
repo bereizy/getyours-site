@@ -365,6 +365,17 @@ We're here to help! Contact us anytime:
 📧 Email: support@indirecttek.com
 🌐 Website: https://indirecttek.com
 
+🛡️ WANT WORRY-FREE MAINTENANCE?
+━━━━━━━━━━━━━━━━━━━━━━
+Let us handle the technical stuff! Our Care Plan ($49.99/mo) includes:
+• Managed hosting & SSL certificate
+• Security & performance updates  
+• Minor content changes (up to 2/month)
+• Priority email support
+
+→ Add Care Plan: https://buy.stripe.com/6oU8wPe202b6fCL3Rp8IU06
+(100% optional. Cancel anytime.)
+
 Thanks for choosing GetYours!
 
 Best,
