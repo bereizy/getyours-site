@@ -445,7 +445,7 @@ import "../styles/global.css";
     </div>
   </div>
 
-  <script>
+  <script is:inline>
     function openUpsellModal(planName, price, regularUrl, bundleUrl) {
       document.getElementById('modalPlanName').textContent = planName;
       document.getElementById('modalPrice').textContent = price;
@@ -466,7 +466,7 @@ import "../styles/global.css";
     }
     
     // Close on escape key
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeUpsellModal();
     });
   </script>
