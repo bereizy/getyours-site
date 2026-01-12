@@ -38,16 +38,37 @@ import "../styles/global.css";
               <select id="industry" name="industry" required
                 class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
                 <option value="">Select your industry...</option>
-                <option value="landscaping">Landscaping / Lawn Care</option>
-                <option value="pressure-washing">Pressure Washing</option>
-                <option value="auto-detailing">Auto Detailing</option>
-                <option value="home-cleaning">Home Cleaning</option>
-                <option value="handyman">Handyman Services</option>
-                <option value="dental">Dental Practice</option>
-                <option value="medical">Medical Practice</option>
-                <option value="real-estate">Real Estate</option>
-                <option value="consulting">Consulting / Professional Services</option>
-                <option value="other">Other</option>
+                <optgroup label="🟢 Starter Tier ($699)">
+                  <option value="landscaping">Landscaping / Lawn Care</option>
+                  <option value="pressure-washing">Pressure Washing / Exterior Cleaning</option>
+                  <option value="auto-detailing">Auto Detailing / Mobile Detailing</option>
+                  <option value="home-cleaning">Home Cleaning / Maid Service</option>
+                  <option value="handyman">Handyman / Home Repair</option>
+                  <option value="junk-removal">Junk Removal</option>
+                  <option value="pool-cleaning">Pool Cleaning</option>
+                  <option value="painting">Painting</option>
+                </optgroup>
+                <optgroup label="🔵 Professional Tier ($1,499)">
+                  <option value="real-estate">Real Estate / Property Management</option>
+                  <option value="tax-accounting">Tax Prep / Bookkeeping / Accounting</option>
+                  <option value="consulting">Business Consulting / Freelance</option>
+                  <option value="insurance">Insurance Agent</option>
+                  <option value="legal">Law Firm / Attorney</option>
+                  <option value="photography">Photography / Videography</option>
+                  <option value="salon">Salon / Barbershop / Beauty</option>
+                  <option value="fitness">Gym / Personal Training / Yoga</option>
+                  <option value="tech-repair">Tech Repair (Phone/Computer)</option>
+                </optgroup>
+                <optgroup label="🟣 Medical Tier ($3,999)">
+                  <option value="dental">Dental Practice</option>
+                  <option value="medical">Medical Practice / Clinic</option>
+                  <option value="chiropractic">Chiropractic</option>
+                  <option value="therapy">Therapy / Counseling / Behavioral Health</option>
+                  <option value="optometry">Optometry / Hearing</option>
+                  <option value="veterinary">Veterinary</option>
+                  <option value="medical-aesthetics">Medical Aesthetics (Botox, Fillers)</option>
+                </optgroup>
+                <option value="other">Other (describe in notes)</option>
               </select>
             </div>
           </div>
