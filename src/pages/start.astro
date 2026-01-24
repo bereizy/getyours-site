@@ -3,310 +3,649 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/global.css";
 ---
 
-<BaseLayout title="Get Started | IndirectTek Essentials" description="Tell us about your business so we can build your perfect website.">
-  
+<BaseLayout
+  title="Get Started | IndirectTek Essentials"
+  description="Tell us about your business so we can build your perfect website."
+>
   <section class="min-h-screen bg-slate-50 py-12 px-6">
     <div class="max-w-3xl mx-auto">
-      
       <!-- Header -->
       <div class="text-center mb-10">
-        <p class="text-emerald-600 font-semibold tracking-widest uppercase mb-2">Website Intake Form</p>
+        <p
+          class="text-emerald-600 font-semibold tracking-widest uppercase mb-2"
+        >
+          Website Intake Form
+        </p>
         <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
           Let's Build Your Website
         </h1>
         <p class="text-slate-600 max-w-xl mx-auto">
-          Fill out the form below with your business details. This helps us customize your site with your branding, services, and contact info.
+          Fill out the form below with your business details. This helps us
+          customize your site with your branding, services, and contact info.
         </p>
       </div>
 
       <!-- Form -->
-      <form id="intake-form" class="bg-white rounded-2xl shadow-lg p-8 md:p-10 space-y-8">
-        
+      <form
+        id="intake-form"
+        class="bg-white rounded-2xl shadow-lg p-8 md:p-10 space-y-8"
+      >
         <!-- Business Info Section -->
         <div class="space-y-6">
-          <h2 class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">📍 Business Information</h2>
-          
+          <h2
+            class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2"
+          >
+            📍 Business Information
+          </h2>
+
           <div class="grid md:grid-cols-2 gap-6">
             <div>
-              <label for="businessName" class="block text-sm font-semibold text-slate-700 mb-2">Business Name *</label>
-              <input type="text" id="businessName" name="businessName" required
+              <label
+                for="businessName"
+                class="block text-sm font-semibold text-slate-700 mb-2"
+                >Business Name *</label
+              >
+              <input
+                type="text"
+                id="businessName"
+                name="businessName"
+                required
                 class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
-                placeholder="GreenLeaf Lawn Care">
+                placeholder="GreenLeaf Lawn Care"
+              />
             </div>
             <div>
-              <label for="industry" class="block text-sm font-semibold text-slate-700 mb-2">Industry / Business Type *</label>
-              <select id="industry" name="industry" required
-                class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all">
+              <label
+                for="industry"
+                class="block text-sm font-semibold text-slate-700 mb-2"
+                >Industry / Business Type *</label
+              >
+              <select
+                id="industry"
+                name="industry"
+                required
+                class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
+              >
                 <option value="">Select your industry...</option>
                 <!-- Starter Tier Industries -->
                 <optgroup id="starter-industries" label="🟢 Starter Tier">
-                  <option value="landscaping" data-tier="starter">Landscaping / Lawn Care</option>
-                  <option value="pressure-washing" data-tier="starter">Pressure Washing / Exterior Cleaning</option>
-                  <option value="auto-detailing" data-tier="starter">Auto Detailing / Mobile Detailing</option>
-                  <option value="home-cleaning" data-tier="starter">Home Cleaning / Maid Service</option>
-                  <option value="handyman" data-tier="starter">Handyman / Home Repair</option>
-                  <option value="junk-removal" data-tier="starter">Junk Removal</option>
-                  <option value="pool-cleaning" data-tier="starter">Pool Cleaning</option>
+                  <option value="landscaping" data-tier="starter"
+                    >Landscaping / Lawn Care</option
+                  >
+                  <option value="pressure-washing" data-tier="starter"
+                    >Pressure Washing / Exterior Cleaning</option
+                  >
+                  <option value="auto-detailing" data-tier="starter"
+                    >Auto Detailing / Mobile Detailing</option
+                  >
+                  <option value="home-cleaning" data-tier="starter"
+                    >Home Cleaning / Maid Service</option
+                  >
+                  <option value="handyman" data-tier="starter"
+                    >Handyman / Home Repair</option
+                  >
+                  <option value="junk-removal" data-tier="starter"
+                    >Junk Removal</option
+                  >
+                  <option value="pool-cleaning" data-tier="starter"
+                    >Pool Cleaning</option
+                  >
                   <option value="painting" data-tier="starter">Painting</option>
                 </optgroup>
                 <!-- Professional Tier Industries -->
-                <optgroup id="professional-industries" label="🔵 Professional Tier">
-                  <option value="real-estate" data-tier="professional">Real Estate / Property Management</option>
-                  <option value="tax-accounting" data-tier="professional">Tax Prep / Bookkeeping / Accounting</option>
-                  <option value="consulting" data-tier="professional">Business Consulting / Freelance</option>
-                  <option value="insurance" data-tier="professional">Insurance Agent</option>
-                  <option value="legal" data-tier="professional">Law Firm / Attorney</option>
-                  <option value="photography" data-tier="professional">Photography / Videography</option>
-                  <option value="salon" data-tier="professional">Salon / Barbershop / Beauty</option>
-                  <option value="fitness" data-tier="professional">Gym / Personal Training / Yoga</option>
-                  <option value="tech-repair" data-tier="professional">Tech Repair (Phone/Computer)</option>
+                <optgroup
+                  id="professional-industries"
+                  label="🔵 Professional Tier"
+                >
+                  <option value="real-estate" data-tier="professional"
+                    >Real Estate / Property Management</option
+                  >
+                  <option value="tax-accounting" data-tier="professional"
+                    >Tax Prep / Bookkeeping / Accounting</option
+                  >
+                  <option value="consulting" data-tier="professional"
+                    >Business Consulting / Freelance</option
+                  >
+                  <option value="insurance" data-tier="professional"
+                    >Insurance Agent</option
+                  >
+                  <option value="legal" data-tier="professional"
+                    >Law Firm / Attorney</option
+                  >
+                  <option value="photography" data-tier="professional"
+                    >Photography / Videography</option
+                  >
+                  <option value="salon" data-tier="professional"
+                    >Salon / Barbershop / Beauty</option
+                  >
+                  <option value="fitness" data-tier="professional"
+                    >Gym / Personal Training / Yoga</option
+                  >
+                  <option value="tech-repair" data-tier="professional"
+                    >Tech Repair (Phone/Computer)</option
+                  >
                 </optgroup>
                 <!-- Medical Tier Industries -->
                 <optgroup id="medical-industries" label="🟣 Medical Tier">
-                  <option value="dental" data-tier="medical">Dental Practice</option>
-                  <option value="medical" data-tier="medical">Medical Practice / Clinic</option>
-                  <option value="chiropractic" data-tier="medical">Chiropractic</option>
-                  <option value="therapy" data-tier="medical">Therapy / Counseling / Behavioral Health</option>
-                  <option value="optometry" data-tier="medical">Optometry / Hearing</option>
-                  <option value="veterinary" data-tier="medical">Veterinary</option>
-                  <option value="medical-aesthetics" data-tier="medical">Medical Aesthetics (Botox, Fillers)</option>
+                  <option value="dental" data-tier="medical"
+                    >Dental Practice</option
+                  >
+                  <option value="medical" data-tier="medical"
+                    >Medical Practice / Clinic</option
+                  >
+                  <option value="chiropractic" data-tier="medical"
+                    >Chiropractic</option
+                  >
+                  <option value="therapy" data-tier="medical"
+                    >Therapy / Counseling / Behavioral Health</option
+                  >
+                  <option value="optometry" data-tier="medical"
+                    >Optometry / Hearing</option
+                  >
+                  <option value="veterinary" data-tier="medical"
+                    >Veterinary</option
+                  >
+                  <option value="medical-aesthetics" data-tier="medical"
+                    >Medical Aesthetics (Botox, Fillers)</option
+                  >
                 </optgroup>
-                <option value="other" data-tier="all">Other (describe in notes)</option>
+                <option value="other" data-tier="all"
+                  >Other (describe in notes)</option
+                >
               </select>
             </div>
           </div>
 
           <div>
-            <label for="serviceArea" class="block text-sm font-semibold text-slate-700 mb-2">Service Area (City, State) *</label>
-            <input type="text" id="serviceArea" name="serviceArea" required
+            <label
+              for="serviceArea"
+              class="block text-sm font-semibold text-slate-700 mb-2"
+              >Service Area (City, State) *</label
+            >
+            <input
+              type="text"
+              id="serviceArea"
+              name="serviceArea"
+              required
               class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
-              placeholder="Raleigh, NC or Triangle Area">
+              placeholder="Raleigh, NC or Triangle Area"
+            />
           </div>
 
           <div>
-            <label for="services" class="block text-sm font-semibold text-slate-700 mb-2">List Your Services *</label>
-            <textarea id="services" name="services" rows="4" required
+            <label
+              for="services"
+              class="block text-sm font-semibold text-slate-700 mb-2"
+              >List Your Services *</label
+            >
+            <textarea
+              id="services"
+              name="services"
+              rows="4"
+              required
               class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
-              placeholder="• Weekly lawn mowing&#10;• Hedge trimming&#10;• Leaf removal&#10;• Mulching&#10;• Spring/Fall cleanup"></textarea>
-            <p class="text-sm text-slate-500 mt-1">One service per line, or comma-separated</p>
+              placeholder="• Weekly lawn mowing
+• Hedge trimming
+• Leaf removal
+• Mulching
+• Spring/Fall cleanup"
+            ></textarea>
+            <p class="text-sm text-slate-500 mt-1">
+              One service per line, or comma-separated
+            </p>
           </div>
         </div>
 
         <!-- Contact Info Section -->
         <div class="space-y-6">
-          <h2 class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">📞 Contact Information</h2>
-          
+          <h2
+            class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2"
+          >
+            📞 Contact Information
+          </h2>
+
           <div class="grid md:grid-cols-2 gap-6">
             <div>
-              <label for="contactName" class="block text-sm font-semibold text-slate-700 mb-2">Your Name *</label>
-              <input type="text" id="contactName" name="contactName" required
+              <label
+                for="contactName"
+                class="block text-sm font-semibold text-slate-700 mb-2"
+                >Your Name *</label
+              >
+              <input
+                type="text"
+                id="contactName"
+                name="contactName"
+                required
                 class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
-                placeholder="John Smith">
+                placeholder="John Smith"
+              />
             </div>
             <div>
-              <label for="email" class="block text-sm font-semibold text-slate-700 mb-2">Email Address *</label>
-              <input type="email" id="email" name="email" required
+              <label
+                for="email"
+                class="block text-sm font-semibold text-slate-700 mb-2"
+                >Email Address *</label
+              >
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
                 class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
-                placeholder="john@greenleaflawn.com">
+                placeholder="john@greenleaflawn.com"
+              />
             </div>
           </div>
 
           <div class="grid md:grid-cols-2 gap-6">
             <div>
-              <label for="phone" class="block text-sm font-semibold text-slate-700 mb-2">Phone Number *</label>
-              <input type="tel" id="phone" name="phone" required
+              <label
+                for="phone"
+                class="block text-sm font-semibold text-slate-700 mb-2"
+                >Phone Number *</label
+              >
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                required
                 class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
-                placeholder="(919) 555-1234">
+                placeholder="(919) 555-1234"
+              />
             </div>
             <div>
-              <label for="address" class="block text-sm font-semibold text-slate-700 mb-2">Business Address (optional)</label>
-              <input type="text" id="address" name="address"
+              <label
+                for="address"
+                class="block text-sm font-semibold text-slate-700 mb-2"
+                >Business Address (optional)</label
+              >
+              <input
+                type="text"
+                id="address"
+                name="address"
                 class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
-                placeholder="123 Main St, Raleigh, NC 27601">
+                placeholder="123 Main St, Raleigh, NC 27601"
+              />
             </div>
           </div>
         </div>
 
         <!-- Branding Section -->
         <div class="space-y-6">
-          <h2 class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">🎨 Branding</h2>
-          
+          <h2
+            class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2"
+          >
+            🎨 Branding
+          </h2>
+
           <div>
-            <label class="block text-sm font-semibold text-slate-700 mb-2">Logo Upload</label>
-            <div class="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center hover:border-emerald-500 transition-colors">
-              <input type="file" id="logo" name="logo" accept="image/*" class="hidden">
+            <label class="block text-sm font-semibold text-slate-700 mb-2"
+              >Logo Upload</label
+            >
+            <div
+              class="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center hover:border-emerald-500 transition-colors"
+            >
+              <input
+                type="file"
+                id="logo"
+                name="logo"
+                accept="image/*"
+                class="hidden"
+              />
               <label for="logo" class="cursor-pointer">
                 <div class="text-4xl mb-2">📁</div>
-                <p class="text-slate-600 font-medium">Click to upload your logo</p>
-                <p class="text-sm text-slate-500 mt-1">PNG, JPG, or SVG (max 10MB)</p>
+                <p class="text-slate-600 font-medium">
+                  Click to upload your logo
+                </p>
+                <p class="text-sm text-slate-500 mt-1">
+                  PNG, JPG, or SVG (max 10MB)
+                </p>
               </label>
-              <p id="logo-filename" class="text-emerald-600 font-medium mt-2 hidden"></p>
+              <p
+                id="logo-filename"
+                class="text-emerald-600 font-medium mt-2 hidden"
+              >
+              </p>
             </div>
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-slate-700 mb-2">Brand Colors</label>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <label class="block text-sm font-semibold text-slate-700 mb-2"
+              >Brand Colors</label
+            >
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
-                <label for="primaryColor" class="block text-xs text-slate-500 mb-1">Primary Color</label>
+                <label
+                  for="primaryColor"
+                  class="block text-xs text-slate-500 mb-1">Primary Color</label
+                >
                 <div class="flex items-center gap-2">
-                  <input type="color" id="primaryColor" name="primaryColor" value="#10b981"
-                    class="w-12 h-10 rounded cursor-pointer border border-slate-300">
-                  <input type="text" id="primaryColorHex" value="#10b981"
-                    class="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono">
+                  <input
+                    type="color"
+                    id="primaryColor"
+                    name="primaryColor"
+                    value="#10b981"
+                    class="w-12 h-10 rounded cursor-pointer border border-slate-300 flex-shrink-0"
+                  />
+                  <input
+                    type="text"
+                    id="primaryColorHex"
+                    value="#10b981"
+                    class="flex-1 min-w-0 px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono"
+                  />
                 </div>
               </div>
               <div>
-                <label for="secondaryColor" class="block text-xs text-slate-500 mb-1">Secondary Color</label>
+                <label
+                  for="secondaryColor"
+                  class="block text-xs text-slate-500 mb-1"
+                  >Secondary Color</label
+                >
                 <div class="flex items-center gap-2">
-                  <input type="color" id="secondaryColor" name="secondaryColor" value="#1e293b"
-                    class="w-12 h-10 rounded cursor-pointer border border-slate-300">
-                  <input type="text" id="secondaryColorHex" value="#1e293b"
-                    class="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono">
+                  <input
+                    type="color"
+                    id="secondaryColor"
+                    name="secondaryColor"
+                    value="#1e293b"
+                    class="w-12 h-10 rounded cursor-pointer border border-slate-300 flex-shrink-0"
+                  />
+                  <input
+                    type="text"
+                    id="secondaryColorHex"
+                    value="#1e293b"
+                    class="flex-1 min-w-0 px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono"
+                  />
                 </div>
               </div>
               <div>
-                <label for="accentColor" class="block text-xs text-slate-500 mb-1">Accent Color</label>
+                <label
+                  for="accentColor"
+                  class="block text-xs text-slate-500 mb-1">Accent Color</label
+                >
                 <div class="flex items-center gap-2">
-                  <input type="color" id="accentColor" name="accentColor" value="#f59e0b"
-                    class="w-12 h-10 rounded cursor-pointer border border-slate-300">
-                  <input type="text" id="accentColorHex" value="#f59e0b"
-                    class="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono">
+                  <input
+                    type="color"
+                    id="accentColor"
+                    name="accentColor"
+                    value="#f59e0b"
+                    class="w-12 h-10 rounded cursor-pointer border border-slate-300 flex-shrink-0"
+                  />
+                  <input
+                    type="text"
+                    id="accentColorHex"
+                    value="#f59e0b"
+                    class="flex-1 min-w-0 px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono"
+                  />
                 </div>
               </div>
               <div>
-                <label for="textColor" class="block text-xs text-slate-500 mb-1">Text Color</label>
+                <label for="textColor" class="block text-xs text-slate-500 mb-1"
+                  >Text Color</label
+                >
                 <div class="flex items-center gap-2">
-                  <input type="color" id="textColor" name="textColor" value="#111827"
-                    class="w-12 h-10 rounded cursor-pointer border border-slate-300">
-                  <input type="text" id="textColorHex" value="#111827"
-                    class="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono">
+                  <input
+                    type="color"
+                    id="textColor"
+                    name="textColor"
+                    value="#111827"
+                    class="w-12 h-10 rounded cursor-pointer border border-slate-300 flex-shrink-0"
+                  />
+                  <input
+                    type="text"
+                    id="textColorHex"
+                    value="#111827"
+                    class="flex-1 min-w-0 px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono"
+                  />
                 </div>
               </div>
             </div>
-            <p class="text-sm text-slate-500 mt-2">Don't have brand colors? No problem—we'll pick great ones for you!</p>
+            <p class="text-sm text-slate-500 mt-2">
+              Don't have brand colors? No problem—we'll pick great ones for you!
+            </p>
           </div>
         </div>
 
         <!-- Domain & Social Section -->
         <div class="space-y-6">
-          <h2 class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">🌐 Domain & Social</h2>
-          
+          <h2
+            class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2"
+          >
+            🌐 Domain & Social
+          </h2>
+
           <div>
-            <label for="domain" class="block text-sm font-semibold text-slate-700 mb-2">Domain Name</label>
-            <input type="text" id="domain" name="domain"
+            <label
+              for="domain"
+              class="block text-sm font-semibold text-slate-700 mb-2"
+              >Domain Name</label
+            >
+            <input
+              type="text"
+              id="domain"
+              name="domain"
               class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
-              placeholder="greenleaflawn.com">
-            <p class="text-sm text-slate-500 mt-1">Already have one? Enter it here. Need one? Leave blank and we'll help you pick.</p>
+              placeholder="greenleaflawn.com"
+            />
+            <p class="text-sm text-slate-500 mt-1">
+              Already have one? Enter it here. Need one? Leave blank and we'll
+              help you pick.
+            </p>
           </div>
 
           <div class="grid md:grid-cols-2 gap-6">
             <div>
-              <label for="facebook" class="block text-sm font-semibold text-slate-700 mb-2">Facebook (optional)</label>
-              <input type="url" id="facebook" name="facebook"
+              <label
+                for="facebook"
+                class="block text-sm font-semibold text-slate-700 mb-2"
+                >Facebook (optional)</label
+              >
+              <input
+                type="url"
+                id="facebook"
+                name="facebook"
                 class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
-                placeholder="https://facebook.com/yourpage">
+                placeholder="https://facebook.com/yourpage"
+              />
             </div>
             <div>
-              <label for="instagram" class="block text-sm font-semibold text-slate-700 mb-2">Instagram (optional)</label>
-              <input type="url" id="instagram" name="instagram"
+              <label
+                for="instagram"
+                class="block text-sm font-semibold text-slate-700 mb-2"
+                >Instagram (optional)</label
+              >
+              <input
+                type="url"
+                id="instagram"
+                name="instagram"
                 class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
-                placeholder="https://instagram.com/yourhandle">
+                placeholder="https://instagram.com/yourhandle"
+              />
             </div>
           </div>
 
           <div class="grid md:grid-cols-2 gap-6">
             <div>
-              <label for="google" class="block text-sm font-semibold text-slate-700 mb-2">Google Business Profile (optional)</label>
-              <input type="url" id="google" name="google"
+              <label
+                for="google"
+                class="block text-sm font-semibold text-slate-700 mb-2"
+                >Google Business Profile (optional)</label
+              >
+              <input
+                type="url"
+                id="google"
+                name="google"
                 class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
-                placeholder="https://g.page/yourbusiness">
+                placeholder="https://g.page/yourbusiness"
+              />
             </div>
             <div>
-              <label for="yelp" class="block text-sm font-semibold text-slate-700 mb-2">Yelp (optional)</label>
-              <input type="url" id="yelp" name="yelp"
+              <label
+                for="yelp"
+                class="block text-sm font-semibold text-slate-700 mb-2"
+                >Yelp (optional)</label
+              >
+              <input
+                type="url"
+                id="yelp"
+                name="yelp"
                 class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
-                placeholder="https://yelp.com/biz/yourbusiness">
+                placeholder="https://yelp.com/biz/yourbusiness"
+              />
             </div>
           </div>
         </div>
 
         <!-- Photos Section -->
         <div class="space-y-6">
-          <h2 class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">📸 Photos (Optional)</h2>
-          
+          <h2
+            class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2"
+          >
+            📸 Photos (Optional)
+          </h2>
+
           <div>
-            <label class="block text-sm font-semibold text-slate-700 mb-2">Upload Photos of Your Work</label>
-            <div class="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center hover:border-emerald-500 transition-colors">
-              <input type="file" id="photos" name="photos" accept="image/*" multiple class="hidden">
+            <label class="block text-sm font-semibold text-slate-700 mb-2"
+              >Upload Photos of Your Work</label
+            >
+            <div
+              class="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center hover:border-emerald-500 transition-colors"
+            >
+              <input
+                type="file"
+                id="photos"
+                name="photos"
+                accept="image/*"
+                multiple
+                class="hidden"
+              />
               <label for="photos" class="cursor-pointer">
                 <div class="text-4xl mb-2">🖼️</div>
                 <p class="text-slate-600 font-medium">Click to upload photos</p>
-                <p class="text-sm text-slate-500 mt-1">Select multiple images (max 10MB each)</p>
+                <p class="text-sm text-slate-500 mt-1">
+                  Select multiple images (max 10MB each)
+                </p>
               </label>
-              <p id="photos-count" class="text-emerald-600 font-medium mt-2 hidden"></p>
+              <p
+                id="photos-count"
+                class="text-emerald-600 font-medium mt-2 hidden"
+              >
+              </p>
             </div>
           </div>
         </div>
 
         <!-- Additional Notes -->
         <div class="space-y-6">
-          <h2 class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">💬 Additional Notes</h2>
-          
+          <h2
+            class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2"
+          >
+            💬 Additional Notes
+          </h2>
+
           <div>
-            <label for="notes" class="block text-sm font-semibold text-slate-700 mb-2">Anything else we should know?</label>
-            <textarea id="notes" name="notes" rows="4"
+            <label
+              for="notes"
+              class="block text-sm font-semibold text-slate-700 mb-2"
+              >Anything else we should know?</label
+            >
+            <textarea
+              id="notes"
+              name="notes"
+              rows="4"
               class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
-              placeholder="Special requests, inspirations, competitors you like, taglines, hours of operation, etc."></textarea>
+              placeholder="Special requests, inspirations, competitors you like, taglines, hours of operation, etc."
+            ></textarea>
           </div>
         </div>
 
         <!-- Submit Button -->
         <div class="pt-4">
-          <button type="submit" id="submit-btn"
-            class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-lg py-4 rounded-lg transition-all hover:shadow-lg hover:shadow-emerald-500/25 disabled:opacity-50 disabled:cursor-not-allowed">
+          <button
+            type="submit"
+            id="submit-btn"
+            class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-lg py-4 rounded-lg transition-all hover:shadow-lg hover:shadow-emerald-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
             <span id="submit-text">Submit & Start My Website Build</span>
             <span id="submit-loading" class="hidden">
-              <svg class="animate-spin inline w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              <svg
+                class="animate-spin inline w-5 h-5 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
               </svg>
               Submitting...
             </span>
           </button>
         </div>
-
       </form>
 
       <!-- Success Message (hidden by default) -->
-      <div id="success-message" class="hidden bg-white rounded-2xl shadow-lg p-8 md:p-10 text-center">
-        <div class="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
-          <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+      <div
+        id="success-message"
+        class="hidden bg-white rounded-2xl shadow-lg p-8 md:p-10 text-center"
+      >
+        <div
+          class="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6"
+        >
+          <svg
+            class="w-10 h-10 text-white"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="3"
+              d="M5 13l4 4L19 7"></path>
           </svg>
         </div>
-        <h2 class="text-2xl font-bold text-slate-900 mb-4">🎉 We Got Your Info!</h2>
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">
+          🎉 We Got Your Info!
+        </h2>
         <p class="text-slate-600 mb-6">
-          Thanks for completing the intake form. We'll review your details and get started on your website right away. 
-          Expect your first preview within <strong>48–72 hours</strong>.
+          Thanks for completing the intake form. We'll review your details and
+          get started on your website right away. Expect your first preview
+          within <strong>48–72 hours</strong>.
         </p>
         <p class="text-slate-500">
-          Questions? Email us at <a href="mailto:support@indirecttek.com" class="text-emerald-600 hover:underline">support@indirecttek.com</a>
+          Questions? Email us at <a
+            href="mailto:support@indirecttek.com"
+            class="text-emerald-600 hover:underline">support@indirecttek.com</a
+          >
         </p>
       </div>
-
     </div>
   </section>
 
   <!-- Access Denied Message (shown if no valid token) -->
-  <section id="access-denied" class="hidden min-h-screen flex items-center justify-center bg-slate-900 text-white px-6">
+  <section
+    id="access-denied"
+    class="hidden min-h-screen flex items-center justify-center bg-slate-900 text-white px-6"
+  >
     <div class="max-w-md text-center">
       <div class="text-6xl mb-6">🔒</div>
       <h1 class="text-3xl font-bold mb-4">Access Required</h1>
       <p class="text-slate-400 mb-8">
-        This intake form requires a valid purchase. Please complete your order first, then you'll be redirected here automatically.
+        This intake form requires a valid purchase. Please complete your order
+        first, then you'll be redirected here automatically.
       </p>
-      <a href="/" class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-3 rounded-lg transition-all">
+      <a
+        href="/"
+        class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-3 rounded-lg transition-all"
+      >
         View Pricing & Purchase →
       </a>
     </div>
@@ -316,45 +655,47 @@ import "../styles/global.css";
     // Token validation and tier filtering
     function validateToken(): { valid: boolean; tier: string } {
       const urlParams = new URLSearchParams(window.location.search);
-      const token = urlParams.get('token');
-      
+      const token = urlParams.get("token");
+
       // Dev bypass for testing - remove in production or use env var
-      if (token === 'dev_bypass') {
-        return { valid: true, tier: 'all' };
+      if (token === "dev_bypass") {
+        return { valid: true, tier: "all" };
       }
-      
+
       if (!token) {
-        return { valid: false, tier: '' };
+        return { valid: false, tier: "" };
       }
 
       try {
         const decoded = JSON.parse(atob(token));
         // Check expiry
         if (decoded.exp && decoded.exp < Date.now()) {
-          console.log('Token expired');
-          return { valid: false, tier: '' };
+          console.log("Token expired");
+          return { valid: false, tier: "" };
         }
-        return { valid: true, tier: decoded.tier || 'starter' };
+        return { valid: true, tier: decoded.tier || "starter" };
       } catch (e) {
-        console.log('Invalid token format');
-        return { valid: false, tier: '' };
+        console.log("Invalid token format");
+        return { valid: false, tier: "" };
       }
     }
 
     function filterIndustriesByTier(tier: string) {
-      const starterGroup = document.getElementById('starter-industries');
-      const professionalGroup = document.getElementById('professional-industries');
-      const medicalGroup = document.getElementById('medical-industries');
-      
+      const starterGroup = document.getElementById("starter-industries");
+      const professionalGroup = document.getElementById(
+        "professional-industries",
+      );
+      const medicalGroup = document.getElementById("medical-industries");
+
       // Show all if tier is 'all' (dev mode)
-      if (tier === 'all') return;
+      if (tier === "all") return;
 
       // Hide tiers they didn't pay for
       // Higher tiers include lower tiers (medical can use professional/starter, professional can use starter)
-      if (tier === 'starter') {
+      if (tier === "starter") {
         professionalGroup?.remove();
         medicalGroup?.remove();
-      } else if (tier === 'professional') {
+      } else if (tier === "professional") {
         medicalGroup?.remove();
       }
       // Medical tier sees all options
@@ -362,29 +703,35 @@ import "../styles/global.css";
 
     // Check token on page load
     const { valid, tier } = validateToken();
-    const mainSection = document.querySelector('section:not(#access-denied):not(#success-message)');
-    const accessDenied = document.getElementById('access-denied');
+    const mainSection = document.querySelector(
+      "section:not(#access-denied):not(#success-message)",
+    );
+    const accessDenied = document.getElementById("access-denied");
 
     if (!valid) {
       // Hide form, show access denied
-      if (mainSection) (mainSection as HTMLElement).classList.add('hidden');
-      if (accessDenied) accessDenied.classList.remove('hidden');
+      if (mainSection) (mainSection as HTMLElement).classList.add("hidden");
+      if (accessDenied) accessDenied.classList.remove("hidden");
     } else {
       // Filter industries to their tier
       filterIndustriesByTier(tier);
     }
 
     // Color picker sync
-    const colorPairs = ['primary', 'secondary', 'accent', 'text'];
-    colorPairs.forEach(name => {
-      const picker = document.getElementById(`${name}Color`) as HTMLInputElement;
-      const hex = document.getElementById(`${name}ColorHex`) as HTMLInputElement;
-      
-      picker?.addEventListener('input', () => {
+    const colorPairs = ["primary", "secondary", "accent", "text"];
+    colorPairs.forEach((name) => {
+      const picker = document.getElementById(
+        `${name}Color`,
+      ) as HTMLInputElement;
+      const hex = document.getElementById(
+        `${name}ColorHex`,
+      ) as HTMLInputElement;
+
+      picker?.addEventListener("input", () => {
         hex.value = picker.value;
       });
-      
-      hex?.addEventListener('input', () => {
+
+      hex?.addEventListener("input", () => {
         if (/^#[0-9A-Fa-f]{6}$/.test(hex.value)) {
           picker.value = hex.value;
         }
@@ -392,73 +739,76 @@ import "../styles/global.css";
     });
 
     // File upload display
-    const logoInput = document.getElementById('logo') as HTMLInputElement;
-    const logoFilename = document.getElementById('logo-filename');
-    logoInput?.addEventListener('change', () => {
+    const logoInput = document.getElementById("logo") as HTMLInputElement;
+    const logoFilename = document.getElementById("logo-filename");
+    logoInput?.addEventListener("change", () => {
       if (logoInput.files && logoInput.files.length > 0 && logoFilename) {
         logoFilename.textContent = `✓ ${logoInput.files[0].name}`;
-        logoFilename.classList.remove('hidden');
+        logoFilename.classList.remove("hidden");
       }
     });
 
-    const photosInput = document.getElementById('photos') as HTMLInputElement;
-    const photosCount = document.getElementById('photos-count');
-    photosInput?.addEventListener('change', () => {
+    const photosInput = document.getElementById("photos") as HTMLInputElement;
+    const photosCount = document.getElementById("photos-count");
+    photosInput?.addEventListener("change", () => {
       if (photosInput.files && photosInput.files.length > 0 && photosCount) {
         photosCount.textContent = `✓ ${photosInput.files.length} photo(s) selected`;
-        photosCount.classList.remove('hidden');
+        photosCount.classList.remove("hidden");
       }
     });
 
     // Form submission
-    const form = document.getElementById('intake-form') as HTMLFormElement;
-    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
-    const submitText = document.getElementById('submit-text');
-    const submitLoading = document.getElementById('submit-loading');
-    const successMessage = document.getElementById('success-message');
+    const form = document.getElementById("intake-form") as HTMLFormElement;
+    const submitBtn = document.getElementById(
+      "submit-btn",
+    ) as HTMLButtonElement;
+    const submitText = document.getElementById("submit-text");
+    const submitLoading = document.getElementById("submit-loading");
+    const successMessage = document.getElementById("success-message");
 
-    form?.addEventListener('submit', async (e) => {
+    form?.addEventListener("submit", async (e) => {
       e.preventDefault();
-      
+
       // Show loading state
       submitBtn.disabled = true;
-      submitText?.classList.add('hidden');
-      submitLoading?.classList.remove('hidden');
+      submitText?.classList.add("hidden");
+      submitLoading?.classList.remove("hidden");
 
       try {
         const formData = new FormData(form);
-        
+
         // Convert FormData to JSON object for reliable submission
         const jsonData: Record<string, string> = {};
         formData.forEach((value, key) => {
           // Skip file inputs for JSON submission
-          if (typeof value === 'string') {
+          if (typeof value === "string") {
             jsonData[key] = value;
           }
         });
-        
-        const response = await fetch('/api/intake', {
-          method: 'POST',
+
+        const response = await fetch("/api/intake", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(jsonData),
         });
 
         if (response.ok) {
           // Show success message
-          form.classList.add('hidden');
-          successMessage?.classList.remove('hidden');
+          form.classList.add("hidden");
+          successMessage?.classList.remove("hidden");
         } else {
-          throw new Error('Submission failed');
+          throw new Error("Submission failed");
         }
       } catch (error) {
-        alert('Something went wrong. Please try again or email us at support@indirecttek.com');
+        alert(
+          "Something went wrong. Please try again or email us at support@indirecttek.com",
+        );
         submitBtn.disabled = false;
-        submitText?.classList.remove('hidden');
-        submitLoading?.classList.add('hidden');
+        submitText?.classList.remove("hidden");
+        submitLoading?.classList.add("hidden");
       }
     });
   </script>
-
 </BaseLayout>
