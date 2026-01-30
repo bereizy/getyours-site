@@ -3,70 +3,115 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/global.css";
 ---
 
-<BaseLayout title="Thank You! | IndirectTek Essentials" description="Your order is confirmed. Let's get started building your website.">
-  
-  <section id="thank-you-section" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white px-6 py-20">
+<BaseLayout
+  title="Thank You! | GetYours"
+  description="Your order is confirmed. Let's get started building your website."
+>
+  <section
+    id="thank-you-section"
+    class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white px-6 py-20"
+  >
     <div class="max-w-2xl mx-auto text-center">
-      
       <!-- Success Icon -->
-      <div class="w-24 h-24 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
-        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+      <div
+        class="w-24 h-24 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce"
+      >
+        <svg
+          class="w-12 h-12 text-white"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+            d="M5 13l4 4L19 7"></path>
         </svg>
       </div>
 
-      <p class="text-emerald-400 font-semibold tracking-widest uppercase mb-4">Order Confirmed</p>
-      
+      <p class="text-emerald-400 font-semibold tracking-widest uppercase mb-4">
+        Order Confirmed
+      </p>
+
       <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
         🎉 Thank You for Your Purchase!
       </h1>
-      
+
       <p class="text-lg md:text-xl text-slate-300 mb-8">
-        We're excited to build your new website. To get started, we need a few details about your business—your logo, colors, services, and contact info.
+        We're excited to build your new website. To get started, we need a few
+        details about your business—your logo, colors, services, and contact
+        info.
       </p>
 
-      <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 mb-8 text-left">
-        <h3 class="font-bold text-lg mb-4 text-emerald-400">📋 What Happens Next:</h3>
+      <div
+        class="bg-slate-800 border border-slate-700 rounded-xl p-6 mb-8 text-left"
+      >
+        <h3 class="font-bold text-lg mb-4 text-emerald-400">
+          📋 What Happens Next:
+        </h3>
         <ol class="space-y-3 text-slate-300">
           <li class="flex items-start gap-3">
-            <span class="bg-emerald-500 text-white text-sm font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+            <span
+              class="bg-emerald-500 text-white text-sm font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+              >1</span
+            >
             <span>Complete the quick intake form (takes ~5 minutes)</span>
           </li>
           <li class="flex items-start gap-3">
-            <span class="bg-emerald-500 text-white text-sm font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+            <span
+              class="bg-emerald-500 text-white text-sm font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+              >2</span
+            >
             <span>We review your info and start building</span>
           </li>
           <li class="flex items-start gap-3">
-            <span class="bg-emerald-500 text-white text-sm font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+            <span
+              class="bg-emerald-500 text-white text-sm font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+              >3</span
+            >
             <span>Receive your first preview within 48–72 hours</span>
           </li>
           <li class="flex items-start gap-3">
-            <span class="bg-emerald-500 text-white text-sm font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">4</span>
+            <span
+              class="bg-emerald-500 text-white text-sm font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+              >4</span
+            >
             <span>Request revisions (if needed)</span>
           </li>
           <li class="flex items-start gap-3">
-            <span class="bg-emerald-500 text-white text-sm font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">5</span>
+            <span
+              class="bg-emerald-500 text-white text-sm font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+              >5</span
+            >
             <span>We deploy to your domain—you own it forever!</span>
           </li>
         </ol>
       </div>
 
-      <a 
+      <a
         id="start-form-link"
-        href="/start" 
+        href="/start"
         class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-lg px-10 py-4 rounded-lg transition-all hover:shadow-lg hover:shadow-emerald-500/25 hover:-translate-y-0.5"
       >
         Start the Intake Form →
       </a>
 
-      <!-- Care Plan Upsell -->
-      <div class="mt-12 bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/30 rounded-xl p-6">
+      <!-- Optional Support Plan -->
+      <div
+        class="mt-12 bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/30 rounded-xl p-6"
+      >
         <div class="flex items-center justify-center gap-2 mb-3">
           <span class="text-2xl">🛡️</span>
-          <h3 class="text-lg font-bold text-amber-400">Want Worry-Free Maintenance?</h3>
+          <h3 class="text-lg font-bold text-amber-400">
+            Optional: Support Plan
+          </h3>
         </div>
         <p class="text-slate-300 mb-4">
-          Let us handle hosting, SSL, security updates, and minor content changes so you can focus on your business.
+          Don't want to touch the tech? We'll handle hosting, updates, and
+          content changes for you. <span class="text-slate-500"
+            >(100% optional)</span
+          >
         </p>
         <ul class="text-sm text-slate-400 mb-4 space-y-1">
           <li>✓ Managed hosting & SSL certificate</li>
@@ -74,20 +119,25 @@ import "../styles/global.css";
           <li>✓ Minor content changes (up to 2/month)</li>
           <li>✓ Priority email support</li>
         </ul>
-        <a 
-          href="https://buy.stripe.com/dRmcN5e209Dy1LV0Fd8IU09" 
+        <a
+          href="https://buy.stripe.com/dRmcN5e209Dy1LV0Fd8IU09"
           target="_blank"
           class="inline-block bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-6 py-2 rounded-lg transition-all text-sm"
         >
-          Add Care Plan — $49.99/mo
+          Add Support Plan — $49.99/mo
         </a>
-        <p class="text-xs text-slate-500 mt-2">100% optional. Cancel anytime.</p>
+        <p class="text-xs text-slate-500 mt-2">
+          Skip this if you're comfortable managing your own site. Cancel
+          anytime.
+        </p>
       </div>
 
       <p class="text-slate-500 mt-6 text-sm">
-        Questions? Email us at <a href="mailto:support@indirecttek.com" class="text-emerald-400 hover:underline">support@indirecttek.com</a>
+        Questions? Email us at <a
+          href="mailto:support@indirecttek.com"
+          class="text-emerald-400 hover:underline">support@indirecttek.com</a
+        >
       </p>
-
     </div>
   </section>
 
@@ -95,38 +145,41 @@ import "../styles/global.css";
     // Verify Stripe session and get token for intake form
     async function verifySession() {
       const urlParams = new URLSearchParams(window.location.search);
-      const sessionId = urlParams.get('session_id');
-      
+      const sessionId = urlParams.get("session_id");
+
       if (!sessionId) {
         // No session ID - redirect to home (they shouldn't be here without paying)
-        console.log('No session ID found, redirecting to home');
-        window.location.href = '/';
+        console.log("No session ID found, redirecting to home");
+        window.location.href = "/";
         return;
       }
 
       try {
-        const response = await fetch(`/api/verify-session?session_id=${sessionId}`);
+        const response = await fetch(
+          `/api/verify-session?session_id=${sessionId}`,
+        );
         const data = await response.json();
-        
+
         if (data.valid && data.token) {
           // Update the start form link with the token
-          const link = document.getElementById('start-form-link') as HTMLAnchorElement;
+          const link = document.getElementById(
+            "start-form-link",
+          ) as HTMLAnchorElement;
           if (link) {
             link.href = `/start?token=${data.token}`;
           }
         } else {
           // Invalid session - redirect to home
-          console.log('Invalid session:', data.error);
-          window.location.href = '/?error=invalid_session';
+          console.log("Invalid session:", data.error);
+          window.location.href = "/?error=invalid_session";
         }
       } catch (error) {
-        console.error('Session verification failed:', error);
+        console.error("Session verification failed:", error);
         // On error, redirect to home
-        window.location.href = '/?error=verification_failed';
+        window.location.href = "/?error=verification_failed";
       }
     }
 
     verifySession();
   </script>
-
 </BaseLayout>
