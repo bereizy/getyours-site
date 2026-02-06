@@ -653,30 +653,47 @@ import "../styles/global.css";
 
   <script>
     // Token validation and tier filtering
-    function validateToken(): { valid: boolean; tier: string } {
+    // Tokens are now signed: payload.signature (HMAC-SHA256)
+    // Client-side only validates format and expiry; server validates signature
+    function validateToken(): { valid: boolean; tier: string; token: string } {
       const urlParams = new URLSearchParams(window.location.search);
       const token = urlParams.get("token");
 
       // Dev bypass for testing - remove in production or use env var
       if (token === "dev_bypass") {
-        return { valid: true, tier: "all" };
+        return { valid: true, tier: "all", token: "" };
       }
 
       if (!token) {
-        return { valid: false, tier: "" };
+        return { valid: false, tier: "", token: "" };
       }
 
       try {
-        const decoded = JSON.parse(atob(token));
+        // New signed token format: payload.signature
+        const parts = token.split(".");
+        let payload: string;
+
+        if (parts.length === 2) {
+          // Signed token format (payload.signature)
+          payload = parts[0];
+        } else {
+          // Legacy unsigned format (just base64 payload) - still decode for backwards compat
+          payload = token;
+        }
+
+        const decoded = JSON.parse(atob(payload));
+
         // Check expiry
         if (decoded.exp && decoded.exp < Date.now()) {
           console.log("Token expired");
-          return { valid: false, tier: "" };
+          return { valid: false, tier: "", token: "" };
         }
-        return { valid: true, tier: decoded.tier || "starter" };
+
+        // Return the full token for server-side verification
+        return { valid: true, tier: decoded.tier || "starter", token };
       } catch (e) {
         console.log("Invalid token format");
-        return { valid: false, tier: "" };
+        return { valid: false, tier: "", token: "" };
       }
     }
 
@@ -702,7 +719,7 @@ import "../styles/global.css";
     }
 
     // Check token on page load
-    const { valid, tier } = validateToken();
+    const { valid, tier, token: validatedToken } = validateToken();
     const mainSection = document.querySelector(
       "section:not(#access-denied):not(#success-message)",
     );
@@ -716,6 +733,9 @@ import "../styles/global.css";
       // Filter industries to their tier
       filterIndustriesByTier(tier);
     }
+
+    // Store token for form submission (server will verify signature)
+    const storedToken = validatedToken;
 
     // Color picker sync
     const colorPairs = ["primary", "secondary", "accent", "text"];
@@ -785,6 +805,11 @@ import "../styles/global.css";
             jsonData[key] = value;
           }
         });
+
+        // Include the signed token for server-side verification
+        if (storedToken) {
+          jsonData._token = storedToken;
+        }
 
         const response = await fetch("/api/intake", {
           method: "POST",

@@ -12,7 +12,19 @@ interface Env {
   ANTHROPIC_API_KEY?: string;
   CLOUDFLARE_API_TOKEN?: string;
   CLOUDFLARE_ACCOUNT_ID?: string;
+  TOKEN_SECRET?: string;  // Secret key for verifying signed tokens
 }
+
+// Default secret for development - MUST be overridden in production
+const DEFAULT_TOKEN_SECRET = 'dev-secret-change-in-production';
+
+// Tier hierarchy: medical > professional > starter
+// Higher tiers can access lower tier industries
+const TIER_LEVELS: Record<string, number> = {
+  'starter': 1,
+  'professional': 2,
+  'medical': 3,
+};
 
 // Template mapping based on industry
 // Templates: essentials-tax-starter (Starter), essentials-professional-starter (Professional), essentials-medical-starter (Medical)
@@ -60,6 +72,56 @@ interface ExecutionContext {
   passThroughOnException(): void;
 }
 
+// Verify HMAC-SHA256 signed token
+async function verifySignedToken(
+  token: string,
+  secret: string
+): Promise<{ valid: boolean; tier: string; error?: string }> {
+  try {
+    const parts = token.split('.');
+
+    if (parts.length !== 2) {
+      return { valid: false, tier: '', error: 'Invalid token format' };
+    }
+
+    const [payload, signature] = parts;
+
+    // Verify signature
+    const expectedSignature = await createHmacSignature(payload, secret);
+    if (signature !== expectedSignature) {
+      return { valid: false, tier: '', error: 'Invalid token signature' };
+    }
+
+    // Decode and validate payload
+    const decoded = JSON.parse(atob(payload));
+
+    // Check expiry
+    if (decoded.exp && decoded.exp < Date.now()) {
+      return { valid: false, tier: '', error: 'Token expired' };
+    }
+
+    return { valid: true, tier: decoded.tier || 'starter' };
+  } catch (e) {
+    return { valid: false, tier: '', error: 'Token verification failed' };
+  }
+}
+
+// Create HMAC-SHA256 signature (must match verify-session.ts)
+async function createHmacSignature(data: string, secret: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(data));
+  return Array.from(new Uint8Array(signature))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+}
+
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
   const ctx = context as unknown as { waitUntil: (p: Promise<unknown>) => void };
@@ -76,7 +138,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     
     // Parse request body - support both JSON and FormData
     let rawData: Record<string, string | File | null> = {};
-    
+
     if (contentType.includes('application/json')) {
       rawData = await request.json() as Record<string, string>;
     } else {
@@ -85,6 +147,46 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       for (const [key, value] of formData.entries()) {
         rawData[key] = value;
       }
+    }
+
+    // Verify signed token to prevent tier spoofing
+    const tokenSecret = env.TOKEN_SECRET || DEFAULT_TOKEN_SECRET;
+    const submittedToken = String(rawData._token || '');
+    const submittedIndustry = String(rawData.industry || 'other');
+    const requiredTier = (TEMPLATE_MAP[submittedIndustry] || TEMPLATE_MAP['other']).tier;
+
+    // Skip token verification for dev_bypass (development only)
+    if (submittedToken && submittedToken !== 'dev_bypass') {
+      const tokenResult = await verifySignedToken(submittedToken, tokenSecret);
+
+      if (!tokenResult.valid) {
+        console.log('Token verification failed:', tokenResult.error);
+        return new Response(JSON.stringify({
+          error: 'Invalid or expired access token. Please complete payment first.',
+          code: 'INVALID_TOKEN',
+        }), { status: 403, headers });
+      }
+
+      // Check tier access: token tier must be >= required tier for the industry
+      const tokenTierLevel = TIER_LEVELS[tokenResult.tier] || 0;
+      const requiredTierLevel = TIER_LEVELS[requiredTier] || 0;
+
+      if (tokenTierLevel < requiredTierLevel) {
+        console.log(`Tier mismatch: token=${tokenResult.tier} (${tokenTierLevel}), required=${requiredTier} (${requiredTierLevel})`);
+        return new Response(JSON.stringify({
+          error: `Your purchase tier (${tokenResult.tier}) does not include ${submittedIndustry}. Please upgrade your plan.`,
+          code: 'TIER_MISMATCH',
+        }), { status: 403, headers });
+      }
+
+      console.log(`Token verified: tier=${tokenResult.tier}, industry=${submittedIndustry}, required=${requiredTier}`);
+    } else if (!submittedToken) {
+      // No token provided - reject unless in development
+      console.log('No token provided');
+      return new Response(JSON.stringify({
+        error: 'Access token required. Please complete payment first.',
+        code: 'MISSING_TOKEN',
+      }), { status: 403, headers });
     }
 
     // Build data object from parsed input

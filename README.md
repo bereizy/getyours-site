@@ -87,10 +87,14 @@ getyours-site/
 | NOTIFICATION_EMAIL | Admin notification recipient |
 | RESEND_API_KEY | Email sending |
 | STRIPE_WEBHOOK_SECRET | Payment verification |
+| STRIPE_SECRET_KEY | Stripe API for session verification |
+| TOKEN_SECRET | HMAC secret for signing intake form tokens (min 32 chars) |
 | GITHUB_PAT | GitHub API (fine-grained: repo, workflow, Actions:write) |
 | ANTHROPIC_API_KEY | Claude AI for content generation |
 | CLOUDFLARE_API_TOKEN | Pages project creation |
 | CLOUDFLARE_ACCOUNT_ID | Cloudflare account |
+
+**Important:** Generate a strong `TOKEN_SECRET` using: `openssl rand -hex 32`
 
 ### GitHub Repo (bereizy/site-deployer)
 

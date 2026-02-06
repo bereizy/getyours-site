@@ -3,7 +3,11 @@
 
 interface Env {
   STRIPE_SECRET_KEY?: string;
+  TOKEN_SECRET?: string;  // Secret key for signing tokens (HMAC-SHA256)
 }
+
+// Default secret for development - MUST be overridden in production
+const DEFAULT_TOKEN_SECRET = 'dev-secret-change-in-production';
 
 // Map Stripe price IDs to tiers
 const PRICE_TO_TIER: Record<string, string> = {
@@ -37,6 +41,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
   const url = new URL(request.url);
   const sessionId = url.searchParams.get('session_id');
+  const tokenSecret = env.TOKEN_SECRET || DEFAULT_TOKEN_SECRET;
 
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -50,26 +55,29 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     });
   }
 
-  // For development/testing: allow a bypass token
+  // For development/testing: allow bypass tokens (unsigned, for local testing only)
   if (sessionId === 'dev_test_starter') {
-    return new Response(JSON.stringify({ 
-      valid: true, 
+    const token = await generateSignedToken('starter', tokenSecret);
+    return new Response(JSON.stringify({
+      valid: true,
       tier: 'starter',
-      token: generateToken('starter'),
+      token,
     }), { headers });
   }
   if (sessionId === 'dev_test_professional') {
-    return new Response(JSON.stringify({ 
-      valid: true, 
+    const token = await generateSignedToken('professional', tokenSecret);
+    return new Response(JSON.stringify({
+      valid: true,
       tier: 'professional',
-      token: generateToken('professional'),
+      token,
     }), { headers });
   }
   if (sessionId === 'dev_test_medical') {
-    return new Response(JSON.stringify({ 
-      valid: true, 
+    const token = await generateSignedToken('medical', tokenSecret);
+    return new Response(JSON.stringify({
+      valid: true,
       tier: 'medical',
-      token: generateToken('medical'),
+      token,
     }), { headers });
   }
 
@@ -77,10 +85,11 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   if (!env.STRIPE_SECRET_KEY) {
     // If no Stripe key configured, allow through for testing
     console.log('No STRIPE_SECRET_KEY configured, allowing session');
-    return new Response(JSON.stringify({ 
-      valid: true, 
+    const token = await generateSignedToken('starter', tokenSecret);
+    return new Response(JSON.stringify({
+      valid: true,
       tier: 'starter',
-      token: generateToken('starter'),
+      token,
       warning: 'Stripe not configured',
     }), { headers });
   }
@@ -97,7 +106,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     );
 
     if (!stripeResponse.ok) {
-      return new Response(JSON.stringify({ 
+      return new Response(JSON.stringify({
         error: 'Invalid session',
         valid: false,
       }), { status: 400, headers });
@@ -115,7 +124,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
     // Check payment was successful
     if (session.payment_status !== 'paid') {
-      return new Response(JSON.stringify({ 
+      return new Response(JSON.stringify({
         error: 'Payment not completed',
         valid: false,
       }), { status: 400, headers });
@@ -136,30 +145,57 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       }
     }
 
-    return new Response(JSON.stringify({ 
+    // Generate signed token for real payments
+    const token = await generateSignedToken(tier, tokenSecret);
+    return new Response(JSON.stringify({
       valid: true,
       tier,
-      token: generateToken(tier),
+      token,
     }), { headers });
 
   } catch (error) {
     console.error('Stripe verification error:', error);
-    return new Response(JSON.stringify({ 
+    return new Response(JSON.stringify({
       error: 'Verification failed',
       valid: false,
     }), { status: 500, headers });
   }
 };
 
-// Generate a simple token encoding the tier and timestamp
-// In production, you'd want to use a proper JWT or signed token
-function generateToken(tier: string): string {
+// Generate a signed token encoding the tier and timestamp
+// Uses HMAC-SHA256 to prevent token forgery
+async function generateSignedToken(tier: string, secret: string): Promise<string> {
   const data = {
     tier,
     exp: Date.now() + (24 * 60 * 60 * 1000), // 24 hour expiry
   };
-  // Simple base64 encoding - not cryptographically secure but prevents casual tampering
-  // For production, sign this with a secret key
+  const payload = btoa(JSON.stringify(data));
+  const signature = await createHmacSignature(payload, secret);
+  return `${payload}.${signature}`;
+}
+
+// Create HMAC-SHA256 signature
+async function createHmacSignature(data: string, secret: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(data));
+  return Array.from(new Uint8Array(signature))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+// Legacy function for dev bypasses (kept for backwards compatibility)
+function generateToken(tier: string): string {
+  const data = {
+    tier,
+    exp: Date.now() + (24 * 60 * 60 * 1000),
+  };
   return btoa(JSON.stringify(data));
 }
 
